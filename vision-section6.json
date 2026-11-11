@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Ya. Screenshot menampilkan website KontenHub (tab Beranda dengan feed publik global, banner \"Studio Konten All-in-One\", filter, dan post dari Budi Santoso) di sebelah kiri, dengan analisis VLM (Analisis Screenshot Tab Beranda) di sebelah kanan.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1794373396,
+  "id": "202611111303132e7db7f1c73d4226",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "202611111303132e7db7f1c73d4226",
+  "usage": {
+    "completion_tokens": 69,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1018,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 1087
+  }
+}

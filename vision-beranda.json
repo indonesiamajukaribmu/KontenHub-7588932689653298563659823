@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "# Analisis Screenshot Tab Beranda — KontenHub\n\n## 1) Tab Navigasi 'Beranda' dan 'Shorts'\n✅ **Ada.** Navbar atas menampilkan: **Beranda** (aktif, dengan ikon rumah dan highlight ungu), **Shorts**, **Upload & Proses**, **Bagikan**, dan **Siaran Langsung**.\n\n## 2) Filter (Semua/Gambar/Video/Dokumen/Arsip)\n✅ **Ada.** Di samping judul \"Beranda — Publikasi Global\" terdapat 5 chip filter: **Semua** (aktif, warna ungu), **Gambar**, **Video**, **Dokumen**, dan **Arsip**.\n\n## 3) Feed Beranda — Kelengkapan Post\n✅ **Lengkap.** Post menampilkan:\n- **Avatar pengunggah**: avatar bulat ungu dengan inisial \"BS\"\n- **Nama**: Budi Santoso\n- **Timestamp**: \"52 menit lalu • 174.7 KB\"\n- **Badge tipe konten**: badge hijau \"IMAGE\" di kanan atas kartu\n- **Caption**: \"File: kontenhub-html-preview.png\" + preview gambar konten (screenshot halaman upload)\n- **Stats**: \"0 tayangan | 0 suka | 0 komentar\"\n- **Tombol aksi**: Like (♡ 0), Komentar (💬 0), **Bagikan**, dan **Detail** (👁)\n\n## 4) Komentar yang Sudah Ditambahkan\n❌ **Tidak ada.** Jumlah komentar = 0 dan tidak ada bagian komentar yang terlihat pada post. Belum ada komentar dengan nama pengunggah.\n\n## 5) Tombol Like Sudah Diklik (Merah)?\n❌ **Belum.** Ikon like masih outline berwarna abu/hitam dengan angka **0** — tidak berwarna merah, menandakan belum diklik.\n\n## 6) Penilaian Keseluruhan Fitur Beranda\n\n**Skor: 8/10**\n\n**Kekuatan:**\n- Struktur feed lengkap dan informatif (avatar, metadata, badge, stats, aksi)\n- Filter tipe konten berfungsi visual dengan state aktif yang jelas\n- Banner info \"Beranda Publik\" memberikan konteks fitur global\n- Hero banner menarik dengan CTA (Upload & Proses, Bagikan, Live Stream)\n- Desain konsisten, bersih, tema ungu kohesif\n\n**Kekurangan:**\n- Fitur komentar belum terpakai (belum ada komentar di contoh)\n- Hanya 1 post di feed, sehingga pengalaman scroll/pagination belum terlihat\n- Stats tayangan masih 0 — preview gambar post tampak seperti screenshot halaman itu sendiri (bisa membingungkan)\n\n**Kesimpulan:** Fitur Beranda sudah sangat baik secara struktur dan UI; tinggal perlu pengujian interaksi nyata (like berubah merah, komentar muncul) untuk memastikan fungsionalitasnya.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1794368983,
+  "id": "2026111111492895cdd8f70276401d",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "2026111111492895cdd8f70276401d",
+  "usage": {
+    "completion_tokens": 691,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2159,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2850
+  }
+}

@@ -1,0 +1,18 @@
+Ini adalah file contoh untuk menguji fitur preview dokumen teks.
+
+KontenHub adalah platform studio konten all-in-one yang memungkinkan Anda:
+1. Upload file (gambar, video, dokumen, arsip)
+2. Proses file (kompresi, konversi, validasi)
+3. Bagikan ke berbagai platform sosial media
+4. Siaran langsung dengan kamera dan mikrofon
+
+Fitur detail modal ini akan menampilkan:
+- Metadata lengkap file
+- Preview sesuai tipe file
+- Untuk gambar: dimensi dan rasio
+- Untuk video: durasi dan resolusi
+- Untuk arsip: daftar file di dalamnya
+- Untuk dokumen teks: cuplikan isi
+
+Total kata: sekitar 100 kata.
+Total baris: 15 baris.

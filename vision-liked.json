@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "# Analisis Screenshot Beranda\n\n## 1) Tombol Like berwarna merah (liked state)? ✅ Ya\n- **Postingan pertama**: ikon like tampil **merah** dengan angka \"1\" — sesuai expected liked state.\n- Didukung juga oleh toast notifikasi **\"Disukai — Anda menyukai postingan ini\"** di pojok kanan atas yang muncul sebagai feedback aksi.\n- **Postingan kedua**: juga merah dengan \"1\" (liked), meskipun toast sudah tidak terlihat di area itu.\n\n## 2) Section komentar terbuka dengan komentar 'Konten keren!'? ✅ Ya\n- Pada postingan pertama, section komentar **terbuka** dan menampilkan komentar dari **Budi Santoso**: *\"Konten keren!\"* dengan timestamp *\"baru saja\"*.\n- Input komentar (\"Tulis komentar...\") dan tombol kirim (ikon pesawat) juga terlihat aktif.\n- Postingan kedua: komentar **tidak terbuka** (masih tertutup, ikon komentar tampil \"0\") — sesuai kondisi awal.\n\n## 3) Angka like & komentar sudah update? ✅ Ya\n| Item | Sebelum (ekspektasi) | Sesudah (screenshot) | Status |\n|---|---|---|---|\n| Like postingan 1 | 0 → 1 | **1 suka**, ikon merah | ✅ Update |\n| Komentar postingan 1 | 0 → 1 | **1 komentar**, terlihat di daftar | ✅ Update |\n| View postingan 1 | 0 | **0 tayangan** | ⚠️ Tidak berubah (mungkin view belum dihitung otomatis) |\n| Like postingan 2 | 1 | 1 suka, merah | ✅ Konsisten |\n| Komentar postingan 2 | 0 | 0 komentar | ✅ Konsisten |\n\n## Penilaian Singkat\n**Lulus / PASS** — Ketiga kriteria terpenuhi: liked state merah terkonfirmasi, komentar \"Konten keren!\" tampil pada section yang terbuka, dan counter like/komentar ter-update real-time. Satu catatan minor: angka \"tayangan\" masih 0 — perlu dicek apakah view count memang di-trigger oleh aksi lain (bukan bug), dan toast \"Disukai\" hanya muncul sesaat (sifat sementara, wajar).",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1794369019,
+  "id": "20261111115005a7ceb40f07a0465e",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "20261111115005a7ceb40f07a0465e",
+  "usage": {
+    "completion_tokens": 561,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 3487,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 4048
+  }
+}
