@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KontenHub — Studio Konten All-in-One</title>
+<meta name="description" content="Unggah & proses file, bagikan ke berbagai platform, dan mulai siaran langsung — semua dalam satu halaman HTML." />
+<style>
+  :root {
+    --violet-50:#f5f3ff; --violet-100:#ede9fe; --violet-200:#ddd6fe; --violet-300:#c4b5fd;
+    --violet-400:#a78bfa; --violet-500:#8b5cf6; --violet-600:#7c3aed; --violet-700:#6d28d9;
+    --fuchsia-500:#d946ef; --fuchsia-600:#c026d3; --fuchsia-700:#a21caf;
+    --slate-50:#f8fafc; --slate-100:#f1f5f9; --slate-200:#e2e8f0; --slate-300:#cbd5e1;
+    --slate-400:#94a3b8; --slate-500:#64748b; --slate-600:#475569; --slate-700:#334155;
+    --slate-800:#1e293b; --slate-900:#0f172a; --slate-950:#020617;
+    --emerald-50:#ecfdf5; --emerald-500:#10b981; --emerald-600:#059669;
+    --sky-500:#0ea5e9; --amber-500:#f59e0b; --rose-500:#f43f5e;
+    --white:#fff; --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+    --shadow-md:0 4px 12px rgba(0,0,0,.08); --shadow-lg:0 12px 30px rgba(0,0,0,.12);
+    --radius:12px; --radius-sm:8px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:linear-gradient(180deg,var(--slate-50) 0%,var(--white) 50%,var(--slate-100) 100%);
+    color:var(--slate-900); line-height:1.5; font-size:15px; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .container{max-width:1152px;margin:0 auto;padding:0 16px}
+  /* Header */
+  header.app-header{
+    position:sticky; top:0; z-index:40; background:rgba(255,255,255,.85);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--slate-200);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    height:60px; padding:0 16px; max-width:1152px; margin:0 auto;
+  }
+  .logo{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--slate-900); font-size:17px}
+  .logo-mark{
+    width:34px;height:34px;border-radius:9px;
+    background:linear-gradient(135deg,var(--violet-600),var(--fuchsia-600));
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    box-shadow:0 4px 12px rgba(124,58,237,.35);
+  }
+  .logo-mark svg{width:18px;height:18px}
+  .nav-tabs{
+    display:flex; gap:4px; background:var(--slate-100); padding:4px; border-radius:10px;
+  }
+  .nav-tab{
+    border:none; background:transparent; padding:8px 14px; border-radius:8px;
+    font-size:13px; font-weight:500; color:var(--slate-600); cursor:pointer;
+    display:flex;align-items:center;gap:6px; transition:all .2s;
+  }
+  .nav-tab svg{width:15px;height:15px}
+  .nav-tab:hover{color:var(--slate-900)}
+  .nav-tab.active{
+    background:#fff; color:var(--violet-700); box-shadow:var(--shadow-sm);
+  }
+  /* Hero */
+  .hero{
+    margin:24px 0; border-radius:18px; padding:28px;
+    background:linear-gradient(135deg,var(--violet-600) 0%,var(--violet-700) 50%,var(--fuchsia-600) 100%);
+    color:#fff; box-shadow:0 20px 50px rgba(124,58,237,.25);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+  }
+  .hero h1{font-size:26px; font-weight:700; margin-bottom:8px; letter-spacing:-.02em}
+  .hero p{font-size:14px; color:rgba(255,255,255,.85); max-width:560px}
+  .hero-badges{display:flex; flex-wrap:wrap; gap:6px}
+  .hero-badge{
+    background:rgba(255,255,255,.2); padding:5px 12px; border-radius:999px;
+    font-size:11px; font-weight:500; backdrop-filter:blur(4px);
+  }
+  /* Card */
+  .card{
+    background:var(--white); border:1px solid var(--slate-200); border-radius:var(--radius);
+    box-shadow:var(--shadow-sm); overflow:hidden;
+  }
+  .card-header{
+    padding:16px 20px; border-bottom:1px solid var(--slate-200);
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .card-title{font-size:15px; font-weight:600; color:var(--slate-900); display:flex; align-items:center; gap:8px}
+  .card-title svg{width:16px;height:16px; color:var(--violet-600)}
+  .card-desc{font-size:12px; color:var(--slate-500); margin-top:4px}
+  .card-content{padding:20px}
+  /* Dropzone */
+  .dropzone{
+    border:2px dashed var(--slate-300); border-radius:var(--radius);
+    padding:24px 20px; text-align:center; transition:all .3s; cursor:pointer;
+    position:relative; overflow:hidden;
+  }
+  .dropzone:hover{border-color:var(--violet-400)}
+  .dropzone.dragging{border-color:var(--violet-500); background:rgba(139,92,246,.06)}
+  .dropzone-icon{
+    width:48px;height:48px;border-radius:12px;margin:0 auto 12px;
+    background:linear-gradient(135deg,var(--violet-600),var(--fuchsia-600));
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    box-shadow:0 8px 18px rgba(139,92,246,.3);
+    transition:transform .3s;
+  }
+  .dropzone.dragging .dropzone-icon{transform:scale(1.1) rotate(3deg)}
+  .dropzone-icon svg{width:24px;height:24px}
+  .dropzone h3{font-size:17px; font-weight:600; margin-bottom:4px}
+  .dropzone p{font-size:12px; color:var(--slate-500); max-width:420px; margin:0 auto 12px}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    padding:9px 16px; font-size:13px; font-weight:500; border:none; border-radius:8px;
+    cursor:pointer; transition:all .2s; text-decoration:none;
+  }
+  .btn svg{width:15px;height:15px}
+  .btn-primary{
+    background:linear-gradient(90deg,var(--violet-600),var(--fuchsia-600));
+    color:#fff; box-shadow:0 4px 12px rgba(139,92,246,.25);
+  }
+  .btn-primary:hover{background:linear-gradient(90deg,var(--violet-700),var(--fuchsia-700))}
+  .btn-outline{background:transparent; border:1px solid var(--slate-300); color:var(--slate-700)}
+  .btn-outline:hover{background:var(--slate-50)}
+  .btn-ghost{background:transparent; color:var(--slate-600); padding:7px 10px}
+  .btn-ghost:hover{background:var(--slate-100); color:var(--slate-900)}
+  .btn-danger-ghost{background:transparent; color:var(--rose-500)}
+  .btn-danger-ghost:hover{background:rgba(244,63,94,.08)}
+  .btn-sm{padding:6px 12px; font-size:12px}
+  .btn-icon{padding:6px; width:30px; height:30px}
+  .btn:disabled{opacity:.5; cursor:not-allowed}
+  /* Stats grid */
+  .stat-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:16px}
+  @media(min-width:640px){.stat-grid{grid-template-columns:repeat(4,1fr)}}
+  .stat-card{
+    display:flex; align-items:center; gap:10px; padding:12px;
+    border:1px solid var(--slate-200); border-radius:10px; background:rgba(255,255,255,.7);
+  }
+  .stat-icon{
+    width:36px;height:36px;border-radius:8px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+  }
+  .stat-icon svg{width:16px;height:16px}
+  .stat-label{font-size:11px; color:var(--slate-500); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .stat-value{font-size:14px; font-weight:600; color:var(--slate-900)}
+  /* File list */
+  .file-list{display:flex; flex-direction:column; gap:10px; max-height:560px; overflow-y:auto; padding:4px}
+  .file-item{
+    display:flex; flex-direction:column; gap:8px; padding:10px;
+    border:1px solid var(--slate-200); border-radius:10px; background:rgba(255,255,255,.6);
+    transition:all .2s;
+  }
+  .file-item:hover{border-color:var(--violet-300); box-shadow:var(--shadow-sm)}
+  @media(min-width:640px){.file-item{flex-direction:row; align-items:center}}
+  .file-thumb{width:44px;height:44px;border-radius:7px;object-fit:cover;flex-shrink:0}
+  .file-icon-box{
+    width:44px;height:44px;border-radius:7px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+  }
+  .file-icon-box svg{width:20px;height:20px}
+  .file-info{flex:1; min-width:0}
+  .file-name{font-size:13px; font-weight:500; color:var(--slate-900); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .file-meta{font-size:11px; color:var(--slate-500); margin-top:2px}
+  .badge{
+    display:inline-flex; align-items:center; gap:4px;
+    padding:3px 8px; border-radius:999px; font-size:11px; font-weight:500;
+    margin-top:6px;
+  }
+  .badge svg{width:11px;height:11px}
+  .badge-queued{background:var(--slate-200); color:var(--slate-600)}
+  .badge-uploading{background:rgba(14,165,233,.15); color:#0369a1}
+  .badge-processing{background:rgba(139,92,246,.15); color:var(--violet-700)}
+  .badge-completed{background:rgba(16,185,129,.15); color:var(--emerald-600)}
+  .badge-error{background:rgba(244,63,94,.15); color:var(--rose-500)}
+  .badge .spin{animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .progress{
+    width:100%; height:6px; background:var(--slate-200); border-radius:999px; overflow:hidden;
+    margin-top:6px;
+  }
+  .progress-bar{
+    height:100%; background:linear-gradient(90deg,var(--violet-500),var(--fuchsia-500));
+    transition:width .3s; border-radius:999px;
+  }
+  .progress-bar.sky{background:linear-gradient(90deg,var(--sky-500),#0284c7)}
+  .file-actions{display:flex; align-items:center; gap:6px}
+  @media(min-width:640px){.file-actions{flex-direction:column; align-items:flex-end}}
+  .result-box{
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+    padding:8px; border-radius:8px; background:rgba(16,185,129,.08);
+    border:1px solid rgba(16,185,129,.2); margin-top:6px;
+  }
+  .result-box svg{width:14px;height:14px; color:var(--emerald-600); flex-shrink:0}
+  .result-text{flex:1; font-size:11px; color:#065f46}
+  /* Dropdown */
+  .dropdown{position:relative; display:inline-block}
+  .dropdown-menu{
+    position:absolute; right:0; top:calc(100% + 4px); min-width:200px;
+    background:#fff; border:1px solid var(--slate-200); border-radius:8px;
+    box-shadow:var(--shadow-lg); padding:4px; z-index:50; display:none;
+  }
+  .dropdown.open .dropdown-menu{display:block}
+  .dropdown-item{
+    display:flex; align-items:center; gap:10px; width:100%; padding:8px 10px;
+    border:none; background:transparent; text-align:left; cursor:pointer;
+    border-radius:6px; font-size:13px; color:var(--slate-700);
+  }
+  .dropdown-item:hover{background:var(--slate-100)}
+  .dropdown-item svg{width:15px;height:15px; color:var(--violet-600)}
+  .dropdown-item-label{display:flex; flex-direction:column}
+  .dropdown-item-label small{font-size:11px; color:var(--slate-500)}
+  /* Empty state */
+  .empty-state{
+    border:1px dashed var(--slate-300); border-radius:var(--radius);
+    padding:28px 20px; text-align:center;
+  }
+  .empty-state-icon{
+    width:40px;height:40px;border-radius:999px;margin:0 auto 10px;
+    background:var(--slate-100); display:flex;align-items:center;justify-content:center;
+    color:var(--slate-400);
+  }
+  .empty-state-icon svg{width:24px;height:24px}
+  .empty-state-title{font-size:14px; font-weight:500; margin-bottom:4px}
+  .empty-state-desc{font-size:12px; color:var(--slate-500)}
+  /* Tabs content */
+  .tab-panel{display:none; animation:fadeIn .3s ease}
+  .tab-panel.active{display:block}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)}}
+  /* Grid layouts */
+  .grid-2{display:grid; grid-template-columns:1fr; gap:24px}
+  @media(min-width:1024px){.grid-2{grid-template-columns:3fr 2fr}}
+  /* Inputs */
+  label.lbl{display:block; font-size:12px; font-weight:500; color:var(--slate-700); margin-bottom:6px}
+  input.inp, textarea.inp, select.inp{
+    width:100%; padding:9px 12px; font-size:13px; font-family:inherit;
+    border:1px solid var(--slate-300); border-radius:8px; background:#fff; color:var(--slate-900);
+    transition:all .2s;
+  }
+  input.inp:focus, textarea.inp:focus, select.inp:focus{
+    outline:none; border-color:var(--violet-500); box-shadow:0 0 0 3px rgba(139,92,246,.15);
+  }
+  textarea.inp{resize:vertical; min-height:80px}
+  .form-group{margin-bottom:14px}
+  .input-group{display:flex; align-items:center; gap:8px}
+  .input-group .prefix{font-size:11px; color:var(--slate-500); flex-shrink:0}
+  /* Link box */
+  .link-box{
+    display:flex; align-items:center; gap:8px; padding:10px;
+    border:1px solid var(--slate-200); border-radius:8px; background:var(--slate-50);
+  }
+  .link-box svg{width:14px;height:14px; color:var(--slate-400); flex-shrink:0}
+  .link-box-text{
+    flex:1; font-size:12px; color:var(--slate-700); overflow:hidden;
+    text-overflow:ellipsis; white-space:nowrap;
+  }
+  /* Toggle */
+  .toggle-row{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    padding:8px; border-radius:8px; background:var(--slate-50); margin-top:8px;
+  }
+  .toggle{position:relative; display:inline-block; width:38px; height:22px}
+  .toggle input{opacity:0; width:0; height:0}
+  .toggle-slider{
+    position:absolute; cursor:pointer; inset:0; background:var(--slate-300);
+    border-radius:999px; transition:.3s;
+  }
+  .toggle-slider::before{
+    content:""; position:absolute; height:16px; width:16px; left:3px; top:3px;
+    background:#fff; border-radius:50%; transition:.3s;
+  }
+  .toggle input:checked + .toggle-slider{background:var(--violet-600)}
+  .toggle input:checked + .toggle-slider::before{transform:translateX(16px)}
+  /* QR Code box */
+  .qr-box{
+    border:1px solid var(--slate-200); background:#fff; padding:16px;
+    border-radius:12px; box-shadow:var(--shadow-sm); display:inline-block;
+  }
+  /* Platform buttons */
+  .platform-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px}
+  .platform-btn{
+    display:flex; align-items:center; gap:8px; padding:10px;
+    border:1px solid var(--slate-200); border-radius:8px; cursor:pointer;
+    background:transparent; text-align:left; transition:all .2s; font-family:inherit;
+  }
+  .platform-btn:hover{transform:scale(1.02); box-shadow:var(--shadow-sm)}
+  .platform-btn svg{width:16px;height:16px; flex-shrink:0}
+  .platform-name{font-size:12px; font-weight:500; color:var(--slate-900); display:block}
+  .platform-stat{font-size:10px; color:var(--slate-500)}
+  .bg-wa{background:rgba(16,185,129,.1)} .bg-wa:hover{background:rgba(16,185,129,.2)} .c-wa{color:var(--emerald-600)}
+  .bg-fb{background:rgba(59,130,246,.1)} .bg-fb:hover{background:rgba(59,130,246,.2)} .c-fb{color:#2563eb}
+  .bg-tw{background:rgba(100,116,139,.1)} .bg-tw:hover{background:rgba(100,116,139,.2)} .c-tw{color:var(--slate-700)}
+  .bg-tg{background:rgba(14,165,233,.1)} .bg-tg:hover{background:rgba(14,165,233,.2)} .c-tg{color:var(--sky-500)}
+  .bg-em{background:rgba(245,158,11,.1)} .bg-em:hover{background:rgba(245,158,11,.2)} .c-em{color:var(--amber-500)}
+  /* Stats bars */
+  .stat-bar-row{display:flex; align-items:center; gap:8px; font-size:11px; margin-bottom:6px}
+  .stat-bar-row svg{width:13px;height:13px; flex-shrink:0}
+  .stat-bar-row .name{width:80px; flex-shrink:0; color:var(--slate-600)}
+  .stat-bar-bg{flex:1; height:6px; background:var(--slate-200); border-radius:999px; overflow:hidden}
+  .stat-bar-fg{height:100%; background:linear-gradient(90deg,var(--violet-500),var(--fuchsia-500)); border-radius:999px}
+  .stat-bar-row .count{width:32px; text-align:right; font-weight:600; color:var(--slate-700)}
+  /* Stat mini */
+  .stat-mini-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px}
+  .stat-mini{
+    display:flex; flex-direction:column; align-items:center; gap:4px; padding:10px;
+    border:1px solid var(--slate-200); border-radius:10px; background:rgba(255,255,255,.7);
+    text-align:center;
+  }
+  .stat-mini-icon{
+    width:30px;height:30px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+  }
+  .stat-mini-icon svg{width:14px;height:14px}
+  .stat-mini-value{font-size:15px; font-weight:700; color:var(--slate-900)}
+  .stat-mini-label{font-size:10px; color:var(--slate-500)}
+  /* Live stream */
+  .live-grid{display:grid; grid-template-columns:1fr; gap:24px}
+  @media(min-width:1024px){.live-grid{grid-template-columns:3fr 2fr}}
+  .video-wrap{
+    position:relative; aspect-ratio:16/9; background:var(--slate-900);
+    border-radius:var(--radius); overflow:hidden;
+  }
+  .video-wrap video{width:100%; height:100%; object-fit:cover}
+  .video-placeholder{
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:10px; color:var(--slate-400);
+  }
+  .video-placeholder svg{width:48px;height:48px}
+  .live-badge{
+    position:absolute; top:12px; left:12px; display:inline-flex; align-items:center; gap:6px;
+    padding:5px 10px; background:var(--rose-500); color:#fff; border-radius:6px;
+    font-size:11px; font-weight:600; letter-spacing:.5px; text-transform:uppercase;
+  }
+  .live-dot{width:8px;height:8px;background:#fff;border-radius:50%;animation:pulse 1.5s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .live-stats{
+    position:absolute; top:12px; right:12px; display:flex; gap:8px;
+  }
+  .live-stat-pill{
+    display:inline-flex; align-items:center; gap:5px; padding:5px 10px;
+    background:rgba(0,0,0,.6); color:#fff; border-radius:6px; font-size:11px; font-weight:500;
+    backdrop-filter:blur(4px);
+  }
+  .live-stat-pill svg{width:12px;height:12px}
+  .device-toggle-row{display:flex; gap:8px; flex-wrap:wrap}
+  .device-btn{
+    display:inline-flex; align-items:center; gap:6px; padding:8px 12px;
+    border:1px solid var(--slate-300); border-radius:8px; background:#fff;
+    cursor:pointer; font-size:12px; color:var(--slate-600); font-family:inherit;
+  }
+  .device-btn.active{background:rgba(139,92,246,.1); border-color:var(--violet-400); color:var(--violet-700)}
+  .device-btn svg{width:14px;height:14px}
+  /* Select */
+  select.inp{appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; padding-right:36px}
+  /* Toast */
+  .toast-container{position:fixed; bottom:20px; right:20px; z-index:100; display:flex; flex-direction:column; gap:8px}
+  .toast{
+    background:#fff; border:1px solid var(--slate-200); border-radius:10px;
+    padding:12px 16px; box-shadow:var(--shadow-lg); min-width:280px; max-width:380px;
+    display:flex; gap:10px; animation:slideIn .25s ease;
+  }
+  @keyframes slideIn{from{transform:translateX(100%); opacity:0} to{transform:translateX(0); opacity:1}}
+  .toast-success{border-left:3px solid var(--emerald-500)}
+  .toast-error{border-left:3px solid var(--rose-500)}
+  .toast-info{border-left:3px solid var(--violet-500)}
+  .toast-icon{flex-shrink:0; margin-top:1px}
+  .toast-icon svg{width:18px;height:18px}
+  .toast-success .toast-icon{color:var(--emerald-500)}
+  .toast-error .toast-icon{color:var(--rose-500)}
+  .toast-info .toast-icon{color:var(--violet-500)}
+  .toast-title{font-size:13px; font-weight:600; color:var(--slate-900)}
+  .toast-desc{font-size:12px; color:var(--slate-500); margin-top:2px}
+  /* Uploader profile */
+  .uploader-bar{
+    display:flex; align-items:center; gap:12px; padding:12px 14px;
+    border-radius:12px; background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(217,70,239,.04));
+    border:1px solid rgba(139,92,246,.18); margin-bottom:14px; flex-wrap:wrap;
+  }
+  .uploader-avatar{
+    width:38px;height:38px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:14px;
+    background:linear-gradient(135deg,var(--violet-600),var(--fuchsia-600));
+    box-shadow:0 4px 10px rgba(139,92,246,.3);
+  }
+  .uploader-info{flex:1; min-width:180px}
+  .uploader-greet{font-size:13px; font-weight:600; color:var(--slate-900)}
+  .uploader-sub{font-size:11px; color:var(--slate-500); margin-top:2px}
+  .uploader-name-input{
+    flex:1; min-width:160px; padding:7px 10px; font-size:13px;
+    border:1px solid var(--slate-300); border-radius:7px; background:#fff;
+  }
+  .uploader-name-input:focus{outline:none; border-color:var(--violet-500); box-shadow:0 0 0 3px rgba(139,92,246,.15)}
+  /* Privacy notice */
+  .privacy-notice{
+    display:flex; gap:10px; padding:10px 14px; border-radius:10px;
+    background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.22);
+    margin-bottom:14px; font-size:12px; color:#065f46;
+  }
+  .privacy-notice svg{width:16px;height:16px; flex-shrink:0; color:var(--emerald-600); margin-top:1px}
+  .privacy-notice strong{color:#064e3b}
+  /* Uploader badge in file item */
+  .uploader-badge{
+    display:inline-flex; align-items:center; gap:5px; margin-top:4px;
+    font-size:10px; color:var(--slate-500);
+  }
+  .uploader-badge .mini-avatar{
+    width:16px;height:16px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    font-size:9px;font-weight:600;
+  }
+  .uploader-badge .upload-time{color:var(--slate-400)}
+  /* Upload history */
+  .history-item{
+    display:flex; align-items:center; gap:10px; padding:8px 10px;
+    border-radius:8px; background:var(--slate-50); margin-bottom:6px;
+    border:1px solid var(--slate-200);
+  }
+  .history-item:last-child{margin-bottom:0}
+  .history-thumb{
+    width:28px;height:28px;border-radius:6px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+  }
+  .history-thumb svg{width:13px;height:13px}
+  .history-info{flex:1; min-width:0; font-size:11px}
+  .history-name{font-weight:500; color:var(--slate-900); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .history-meta{color:var(--slate-500); margin-top:1px}
+  .history-meta strong{color:var(--violet-600); font-weight:600}
+  .history-empty{text-align:center; padding:20px; color:var(--slate-400); font-size:12px}
+  /* Footer */
+  footer.app-footer{
+    border-top:1px solid var(--slate-200); background:rgba(255,255,255,.6);
+    backdrop-filter:blur(6px); padding:16px 0; margin-top:32px;
+  }
+  .footer-inner{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    max-width:1152px; margin:0 auto; padding:0 16px; flex-wrap:wrap;
+  }
+  .footer-text{font-size:12px; color:var(--slate-500)}
+  .footer-links{display:flex; gap:16px}
+  .footer-links a{font-size:12px; color:var(--slate-500); text-decoration:none; display:inline-flex; align-items:center; gap:5px}
+  .footer-links a:hover{color:var(--violet-600)}
+  .footer-links svg{width:14px;height:14px}
+  /* Preview card */
+  .preview-card{
+    border:1px solid var(--slate-200); border-radius:12px; overflow:hidden;
+  }
+  .preview-media{
+    aspect-ratio:16/9; background:linear-gradient(135deg,var(--slate-100),var(--slate-200));
+    position:relative; display:flex; align-items:center; justify-content:center;
+  }
+  .preview-media img, .preview-media video{width:100%; height:100%; object-fit:cover}
+  .preview-media .placeholder{color:var(--slate-400); text-align:center}
+  .preview-media .placeholder svg{width:40px;height:40px; margin:0 auto 6px}
+  .preview-info{padding:14px}
+  .preview-info h3{font-size:14px; font-weight:600; margin-bottom:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .preview-info p{font-size:12px; color:var(--slate-600); overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical}
+  .preview-link{display:flex; align-items:center; gap:5px; margin-top:8px; font-size:11px; color:var(--violet-600); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .preview-link svg{width:12px;height:12px; flex-shrink:0}
+  .preview-badge{
+    position:absolute; top:10px; left:10px;
+    background:rgba(0,0,0,.6); color:#fff; padding:4px 8px; border-radius:6px;
+    font-size:10px; text-transform:uppercase; backdrop-filter:blur(4px);
+  }
+  /* Live viewer sparkline */
+  .sparkline-row{display:flex; align-items:flex-end; gap:2px; height:50px; margin-top:8px}
+  .spark-bar{flex:1; background:linear-gradient(180deg,var(--violet-500),var(--fuchsia-500)); border-radius:2px 2px 0 0; min-height:4px; transition:height .3s}
+  /* Heartbeat animation */
+  .heartbeat{animation:heartbeat 1s ease-in-out infinite}
+  @keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        KontenHub
+      </div>
+      <nav class="nav-tabs" role="tablist">
+        <button class="nav-tab active" data-tab="upload" role="tab" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Upload &amp; Proses
+        </button>
+        <button class="nav-tab" data-tab="share" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Bagikan
+        </button>
+        <button class="nav-tab" data-tab="live" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+          Siaran Langsung
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container" style="padding-top:20px; padding-bottom:20px">
+      <!-- HERO -->
+      <section class="hero">
+        <div>
+          <h1>Studio Konten All-in-One</h1>
+          <p>Unggah &amp; proses file, bagikan ke berbagai platform, dan mulai siaran langsung — semua dalam satu halaman HTML.</p>
+        </div>
+        <div class="hero-badges">
+          <span class="hero-badge">Upload &amp; Proses</span>
+          <span class="hero-badge">Bagikan</span>
+          <span class="hero-badge">Live Stream</span>
+        </div>
+      </section>
+
+      <!-- ====================== TAB 1: UPLOAD & PROSES ====================== -->
+      <section class="tab-panel active" id="panel-upload" role="tabpanel">
+        <!-- Privacy Notice -->
+        <div class="privacy-notice">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          <div>
+            <strong>Privasi Anda terjaga.</strong> Semua file &amp; info pengunggah hanya tersimpan di browser Anda (localStorage). <strong>Pengunjung lain tidak dapat melihat data Anda</strong> karena situs ini statis tanpa server.
+          </div>
+        </div>
+
+        <!-- Uploader Profile Bar -->
+        <div class="uploader-bar">
+          <div class="uploader-avatar" id="uploader-avatar">?</div>
+          <div class="uploader-info">
+            <div class="uploader-greet" id="uploader-greet">Halo, Tamu!</div>
+            <div class="uploader-sub" id="uploader-sub">Masukkan nama Anda agar tercatat pada setiap unggahan.</div>
+          </div>
+          <input type="text" class="uploader-name-input" id="uploader-name-input" placeholder="Nama Anda..." maxlength="40" />
+          <button class="btn btn-primary btn-sm" id="save-uploader-btn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Simpan
+          </button>
+        </div>
+
+        <div class="card" style="border:2px dashed var(--slate-300); margin-bottom:16px">
+          <div class="dropzone" id="dropzone">
+            <div class="dropzone-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <h3 id="dropzone-title">Tarik &amp; lepas file Anda</h3>
+            <p>Mendukung gambar, video, dokumen, dan arsip. Maksimal 100MB per file. Anda juga bisa memilih file dari perangkat.</p>
+            <button class="btn btn-primary" id="pick-file-btn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Pilih File
+            </button>
+            <input type="file" id="file-input" multiple accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.zip,.rar,.7z" style="display:none" />
+            <p style="font-size:11px; color:var(--slate-500); margin-top:8px">atau seret file ke area ini</p>
+          </div>
+        </div>
+
+        <!-- Stats ringkas -->
+        <div class="stat-grid" id="upload-stats" style="display:none"></div>
+
+        <!-- File list -->
+        <div class="card" id="file-list-card" style="margin-top:16px; display:none">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z"/></svg>
+                Daftar File
+              </div>
+              <div class="card-desc">Proses file dengan kompresi, konversi, atau validasi.</div>
+            </div>
+            <button class="btn btn-danger-ghost btn-sm" id="clear-all-btn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Bersihkan
+            </button>
+          </div>
+          <div class="card-content">
+            <div class="file-list" id="file-list"></div>
+          </div>
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state" id="empty-state">
+          <div class="empty-state-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <p class="empty-state-title">Belum ada file</p>
+          <p class="empty-state-desc">Unggah file untuk mulai memproses. File yang sudah diproses dapat dibagikan pada tab berikutnya.</p>
+        </div>
+
+        <!-- Upload History -->
+        <div class="card" style="margin-top:16px">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Riwayat Unggahan (Publik Per-Browser)
+              </div>
+              <div class="card-desc">Daftar unggahan tersimpan di browser ini. Pengunjung lain tidak dapat melihatnya.</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" id="clear-history-btn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+              Hapus
+            </button>
+          </div>
+          <div class="card-content" style="padding:12px">
+            <div id="upload-history-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== TAB 2: BAGIKAN ====================== -->
+      <section class="tab-panel" id="panel-share" role="tabpanel">
+        <div style="background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(217,70,239,.05),transparent); padding:16px; border-radius:12px; border:1px solid rgba(139,92,246,.2); margin-bottom:16px; display:flex; gap:10px; align-items:flex-start">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px; color:var(--violet-600); flex-shrink:0; margin-top:2px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <div>
+            <h2 style="font-size:17px; font-weight:600; margin-bottom:4px">Bagikan Konten Anda</h2>
+            <p style="font-size:13px; color:var(--slate-600)">Pilih konten yang sudah diproses, sesuaikan pesan, lalu sebar ke berbagai platform populer.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- LEFT -->
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <!-- Pilih konten -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z"/></svg>
+                    Pilih Konten
+                  </div>
+                  <div class="card-desc">Pilih dari file yang sudah selesai diproses di tab Upload.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div id="processed-files-list"></div>
+              </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Pratinjau Konten</div>
+                  <div class="card-desc">Begini tampilannya saat dibagikan.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="preview-card">
+                  <div class="preview-media" id="preview-media">
+                    <div class="placeholder">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      <span style="font-size:11px">Tidak ada pratinjau visual</span>
+                    </div>
+                  </div>
+                  <div class="preview-info">
+                    <h3 id="preview-title">Konten keren dari KontenHub</h3>
+                    <p id="preview-desc">Lihat konten yang baru saja saya buat dan proses di KontenHub. Dibagikan dengan cinta.</p>
+                    <div class="preview-link">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                      <span id="preview-url"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pengaturan pesan -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Pesan &amp; Tautan</div>
+                  <div class="card-desc">Sesuaikan judul, deskripsi, dan slug tautan.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="form-group">
+                  <label class="lbl" for="share-title">Judul</label>
+                  <input class="inp" id="share-title" value="Konten keren dari KontenHub" />
+                </div>
+                <div class="form-group">
+                  <label class="lbl" for="share-desc">Deskripsi</label>
+                  <textarea class="inp" id="share-desc" rows="3">Lihat konten yang baru saja saya buat dan proses di KontenHub. Dibagikan dengan cinta.</textarea>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="lbl" for="share-slug">Slug Tautan</label>
+                  <div class="input-group">
+                    <span class="prefix">kontenhub.id/s/</span>
+                    <input class="inp" id="share-slug" value="konten-keren-2025" style="font-family:monospace; font-size:12px" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <!-- Tautan publik -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Tautan Publik
+                  </div>
+                  <div class="card-desc">Salin tautan atau buka di tab baru.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="link-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  <span class="link-box-text" id="share-url-display"></span>
+                </div>
+                <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap">
+                  <button class="btn btn-primary" id="copy-link-btn" style="flex:1; min-width:140px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <span id="copy-link-label">Salin Tautan</span>
+                  </button>
+                  <button class="btn btn-outline" id="open-link-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    Buka
+                  </button>
+                </div>
+                <button class="btn btn-outline" id="native-share-btn" style="width:100%; margin-top:8px; border-color:var(--violet-300); color:var(--violet-700); display:none">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                  Bagikan via Perangkat (Web Share API)
+                </button>
+                <div class="toggle-row">
+                  <label class="lbl" for="qr-toggle" style="margin:0; display:flex; align-items:center; gap:8px; font-weight:400">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px; color:var(--slate-500)"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Tampilkan QR Code
+                  </label>
+                  <label class="toggle">
+                    <input type="checkbox" id="qr-toggle" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- QR Code -->
+            <div class="card" id="qr-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    QR Code
+                  </div>
+                  <div class="card-desc">Pindai untuk membuka tautan.</div>
+                </div>
+              </div>
+              <div class="card-content" style="text-align:center">
+                <div class="qr-box"><canvas id="qr-canvas" width="180" height="180"></canvas></div>
+                <p style="font-size:11px; color:var(--slate-500); margin-top:10px">Arahkan kamera ponsel ke QR code untuk mengakses konten secara cepat.</p>
+              </div>
+            </div>
+
+            <!-- Platform buttons -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Bagikan ke Platform</div>
+                  <div class="card-desc">Pilih platform tujuan.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="platform-grid" id="platform-grid"></div>
+              </div>
+            </div>
+
+            <!-- Statistik -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    Statistik Berbagi
+                  </div>
+                  <div class="card-desc">Total dan rincian per platform.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="stat-mini-grid" id="stat-mini-grid"></div>
+                <div id="stat-bars"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== TAB 3: SIARAN LANGSUNG ====================== -->
+      <section class="tab-panel" id="panel-live" role="tabpanel">
+        <div style="background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(217,70,239,.05),transparent); padding:16px; border-radius:12px; border:1px solid rgba(139,92,246,.2); margin-bottom:16px; display:flex; gap:10px; align-items:flex-start">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px; color:var(--violet-600); flex-shrink:0; margin-top:2px"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+          <div>
+            <h2 style="font-size:17px; font-weight:600; margin-bottom:4px">Siaran Langsung</h2>
+            <p style="font-size:13px; color:var(--slate-600)">Aktifkan kamera &amp; mikrofon, atur siaran, lalu mulai publikasi langsung ke publik.</p>
+          </div>
+        </div>
+
+        <div class="live-grid">
+          <!-- LEFT: Video preview -->
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Preview Siaran</div>
+                  <div class="card-desc" id="live-status-desc">Kamera belum aktif. Aktifkan untuk melihat preview.</div>
+                </div>
+                <div id="live-indicator"></div>
+              </div>
+              <div class="card-content">
+                <div class="video-wrap" id="video-wrap">
+                  <video id="live-video" autoplay muted playsinline></video>
+                  <div class="video-placeholder" id="video-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    <span style="font-size:13px">Kamera &amp; Mikrofon belum diaktifkan</span>
+                    <span style="font-size:11px">Klik tombol di bawah untuk mulai</span>
+                  </div>
+                  <div id="live-overlay" style="display:none">
+                    <div class="live-badge"><span class="live-dot"></span>LIVE</div>
+                    <div class="live-stats">
+                      <span class="live-stat-pill">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        <span id="live-viewers">0</span>
+                      </span>
+                      <span class="live-stat-pill">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span id="live-duration">00:00</span>
+                      </span>
+                      <span class="live-stat-pill">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        <span id="live-hearts">0</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:8px; margin-top:14px; flex-wrap:wrap">
+                  <button class="btn btn-primary" id="enable-media-btn" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    Aktifkan Kamera &amp; Mikrofon
+                  </button>
+                  <button class="btn btn-success" id="start-stream-btn" type="button" disabled style="background:linear-gradient(90deg,#10b981,#059669); color:#fff">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Mulai Siaran
+                  </button>
+                  <button class="btn btn-danger-ghost" id="stop-stream-btn" type="button" disabled style="border:1px solid var(--rose-500); color:var(--rose-500)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12"/></svg>
+                    Akhiri Siaran
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Statistik live -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    Statistik Siaran
+                  </div>
+                  <div class="card-desc">Penonton real-time &amp; historis.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="stat-mini-grid">
+                  <div class="stat-mini">
+                    <div class="stat-mini-icon" style="background:linear-gradient(135deg,var(--violet-500),var(--fuchsia-500))">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </div>
+                    <span class="stat-mini-value" id="stat-current-viewers">0</span>
+                    <span class="stat-mini-label">Penonton Sekarang</span>
+                  </div>
+                  <div class="stat-mini">
+                    <div class="stat-mini-icon" style="background:linear-gradient(135deg,var(--sky-500),#0284c7)">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <span class="stat-mini-value" id="stat-peak-viewers">0</span>
+                    <span class="stat-mini-label">Puncak Penonton</span>
+                  </div>
+                  <div class="stat-mini">
+                    <div class="stat-mini-icon" style="background:linear-gradient(135deg,var(--emerald-500),var(--emerald-600))">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </div>
+                    <span class="stat-mini-value" id="stat-total-hearts">0</span>
+                    <span class="stat-mini-label">Total Heart</span>
+                  </div>
+                </div>
+                <div style="font-size:11px; color:var(--slate-500); margin-bottom:4px">Penonton 30 detik terakhir</div>
+                <div class="sparkline-row" id="sparkline"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Settings -->
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Pengaturan Siaran
+                  </div>
+                  <div class="card-desc">Atur detail &amp; privasi sebelum mulai.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="form-group">
+                  <label class="lbl" for="live-title">Judul Siaran</label>
+                  <input class="inp" id="live-title" value="Siaran Langsung Pertama Saya" />
+                </div>
+                <div class="form-group">
+                  <label class="lbl" for="live-desc">Deskripsi</label>
+                  <textarea class="inp" id="live-desc" rows="3">Halo semua! Hari ini saya akan berbagi sesuatu yang menarik. Stay tuned!</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="lbl" for="live-privacy">Privasi</label>
+                  <select class="inp" id="live-privacy">
+                    <option value="public">Publik — semua orang dapat menonton</option>
+                    <option value="private">Privat — hanya dengan tautan</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="lbl" for="live-category">Kategori</label>
+                  <select class="inp" id="live-category">
+                    <option value="music">Musik</option>
+                    <option value="gaming">Gaming</option>
+                    <option value="education">Edukasi</option>
+                    <option value="news">Berita</option>
+                    <option value="business">Bisnis</option>
+                    <option value="talk" selected>Talk Show</option>
+                  </select>
+                </div>
+                <div class="toggle-row" style="background:transparent; padding:0">
+                  <label class="lbl" for="record-toggle" style="margin:0; display:flex; align-items:center; gap:8px; font-weight:400">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px; color:var(--slate-500)"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                    Rekam siaran
+                  </label>
+                  <label class="toggle">
+                    <input type="checkbox" id="record-toggle" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Device control -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Kontrol Perangkat</div>
+                  <div class="card-desc">Aktifkan/nonaktifkan kamera &amp; mikrofon.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="device-toggle-row">
+                  <button class="device-btn" id="toggle-cam-btn" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    Kamera Aktif
+                  </button>
+                  <button class="device-btn" id="toggle-mic-btn" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                    Mikrofon Aktif
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Info publikasi -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Status Publikasi</div>
+                  <div class="card-desc">Ringkasan siaran saat ini.</div>
+                </div>
+              </div>
+              <div class="card-content" id="publish-status">
+                <div style="display:flex; flex-direction:column; gap:8px; font-size:13px">
+                  <div style="display:flex; justify-content:space-between"><span style="color:var(--slate-500)">Status</span><span style="font-weight:600" id="publish-state">Belum dimulai</span></div>
+                  <div style="display:flex; justify-content:space-between"><span style="color:var(--slate-500)">Tautan Siaran</span><span style="font-family:monospace; font-size:11px; color:var(--violet-600)" id="publish-url">—</span></div>
+                  <div style="display:flex; justify-content:space-between"><span style="color:var(--slate-500)">Kategori</span><span id="publish-category">Talk Show</span></div>
+                  <div style="display:flex; justify-content:space-between"><span style="color:var(--slate-500)">Privasi</span><span id="publish-privacy">Publik</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <span class="footer-text">© 2025 KontenHub — Studio Konten All-in-One</span>
+      <div class="footer-links">
+        <a href="#" onclick="return false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="#" onclick="return false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+/* =================== STATE =================== */
+const state = {
+  files: [],
+  activeTab: 'upload',
+  selectedFileId: null,
+  uploader: { name:'', avatarColor:'linear-gradient(135deg,#7c3aed,#c026d3)', initials:'?' },
+  history: [],
+  shareStats: { whatsapp:12, facebook:8, twitter:15, telegram:5, email:3, link:24 },
+  stream: {
+    mediaStream:null, isLive:false, viewers:0, peakViewers:0, hearts:0, totalHearts:0,
+    startTime:null, durationTimer:null, viewerTimer:null, heartTimer:null,
+    history:Array(30).fill(0), camEnabled:false, micEnabled:false,
+  },
+};
+
+/* Avatar color palette */
+const AVATAR_COLORS = [
+  'linear-gradient(135deg,#7c3aed,#c026d3)',
+  'linear-gradient(135deg,#0ea5e9,#06b6d4)',
+  'linear-gradient(135deg,#10b981,#14b8a6)',
+  'linear-gradient(135deg,#f59e0b,#f97316)',
+  'linear-gradient(135deg,#f43f5e,#ec4899)',
+  'linear-gradient(135deg,#6366f1,#8b5cf6)',
+  'linear-gradient(135deg,#14b8a6,#0ea5e9)',
+  'linear-gradient(135deg,#a855f7,#ec4899)',
+];
+function pickColor(seed){
+  let h=0; for(let i=0;i<seed.length;i++) h=(h*31+seed.charCodeAt(i))>>>0;
+  return AVATAR_COLORS[h % AVATAR_COLORS.length];
+}
+function getInitials(name){
+  if(!name) return '?';
+  const parts = name.trim().split(/\s+/);
+  if(parts.length===1) return parts[0].slice(0,2).toUpperCase();
+  return (parts[0][0]+parts[parts.length-1][0]).toUpperCase();
+}
+function formatTime(ts){
+  const d = new Date(ts);
+  return d.toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+}
+function formatRelative(ts){
+  const diff = Date.now()-ts;
+  if(diff<60000) return 'baru saja';
+  if(diff<3600000) return Math.floor(diff/60000)+' menit lalu';
+  if(diff<86400000) return Math.floor(diff/3600000)+' jam lalu';
+  return Math.floor(diff/86400000)+' hari lalu';
+}
+
+/* === Uploader Profile Management === */
+function loadUploader(){
+  try{
+    const saved = localStorage.getItem('kontenhub_uploader');
+    if(saved){
+      const data = JSON.parse(saved);
+      state.uploader = { ...state.uploader, ...data };
+      if(!data.avatarColor || !data.initials){
+        state.uploader.avatarColor = pickColor(data.name||'');
+        state.uploader.initials = getInitials(data.name);
+      }
+    }
+  }catch{}
+  renderUploader();
+}
+function saveUploader(){
+  const name = document.getElementById('uploader-name-input').value.trim();
+  if(!name){ toast('Nama kosong', 'Masukkan nama Anda terlebih dahulu.', 'error'); return; }
+  state.uploader.name = name;
+  state.uploader.initials = getInitials(name);
+  state.uploader.avatarColor = pickColor(name);
+  try{
+    localStorage.setItem('kontenhub_uploader', JSON.stringify(state.uploader));
+  }catch{}
+  renderUploader();
+  toast('Identitas disimpan', 'Nama "'+name+'" kini tercatat pada setiap unggahan Anda.', 'success');
+}
+function renderUploader(){
+  const avatar = document.getElementById('uploader-avatar');
+  const greet = document.getElementById('uploader-greet');
+  const sub = document.getElementById('uploader-sub');
+  const input = document.getElementById('uploader-name-input');
+  if(state.uploader.name){
+    avatar.style.background = state.uploader.avatarColor;
+    avatar.textContent = state.uploader.initials;
+    greet.textContent = 'Halo, '+state.uploader.name+'!';
+    sub.textContent = 'Nama Anda tercatat pada setiap unggahan di browser ini.';
+    if(input && !input.value) input.value = state.uploader.name;
+  } else {
+    avatar.style.background = 'linear-gradient(135deg,#94a3b8,#64748b)';
+    avatar.textContent = '?';
+    greet.textContent = 'Halo, Tamu!';
+    sub.textContent = 'Masukkan nama Anda agar tercatat pada setiap unggahan.';
+  }
+}
+
+/* === Upload History === */
+function loadHistory(){
+  try{
+    const saved = localStorage.getItem('kontenhub_history');
+    if(saved) state.history = JSON.parse(saved);
+  }catch{}
+  renderHistory();
+}
+function saveHistory(){
+  try{ localStorage.setItem('kontenhub_history', JSON.stringify(state.history.slice(0,50))); }catch{}
+}
+function addToHistory(file){
+  state.history.unshift({
+    id: file.id, name: file.name, size: file.size, type: file.type,
+    uploader: state.uploader.name || 'Tamu',
+    initials: state.uploader.initials,
+    avatarColor: state.uploader.avatarColor,
+    timestamp: file.uploadedAt,
+    category: getFileCategory(file.type),
+    status: file.status,
+  });
+  if(state.history.length > 50) state.history = state.history.slice(0,50);
+  saveHistory();
+  renderHistory();
+}
+function renderHistory(){
+  const list = document.getElementById('upload-history-list');
+  if(!list) return;
+  if(state.history.length === 0){
+    list.innerHTML = '<div class="history-empty">Belum ada riwayat unggahan di browser ini. Unggah file untuk mulai.</div>';
+    return;
+  }
+  list.innerHTML = state.history.map(h=>{
+    const grad = categoryGradientMap[h.category] || 'linear-gradient(135deg,#64748b,#475569)';
+    const icon = categoryIconMap[h.category] || ICONS.file;
+    return '<div class="history-item"><div class="history-thumb" style="background:'+grad+'">'+icon+'</div><div class="history-info"><div class="history-name" title="'+h.name+'">'+h.name+'</div><div class="history-meta">Diunggah oleh <strong>'+h.uploader+'</strong> • '+formatRelative(h.timestamp)+'</div></div><div style="font-size:10px; color:var(--slate-400); white-space:nowrap">'+formatBytes(h.size)+'</div></div>';
+  }).join('');
+}
+function clearHistory(){
+  if(state.history.length===0){ toast('Riwayat kosong', 'Tidak ada riwayat untuk dihapus.', 'info'); return; }
+  state.history = [];
+  saveHistory();
+  renderHistory();
+  toast('Riwayat dihapus', 'Semua riwayat unggahan telah dibersihkan.', 'info');
+}
+
+document.getElementById('save-uploader-btn').addEventListener('click', saveUploader);
+document.getElementById('uploader-name-input').addEventListener('keydown', e=>{ if(e.key==='Enter') saveUploader(); });
+document.getElementById('clear-history-btn').addEventListener('click', clearHistory);
+
+/* =================== ICONS =================== */
+const ICONS = {
+  file:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  fileImage:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+  fileVideo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>',
+  fileAudio:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+  fileText:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+  fileArchive:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+  copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+  trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+  wand:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h0"/><path d="M17.8 6.2L19 5"/><path d="M3 21l9-9"/><path d="M12.2 6.2L11 5"/></svg>',
+  download:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+  repeat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  loader:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>',
+  alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  sparkles:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z"/></svg>',
+  whatsapp:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.821 11.821 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.6 5.351l-.999 3.648 3.888-1.498zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>',
+  facebook:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>',
+  twitter:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+  telegram:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.163-.17 2.987-2.74 3.044-2.97.008-.033.014-.154-.061-.218s-.186-.041-.266-.024c-.113.026-1.91 1.213-5.385 3.555-.51.35-.972.521-1.388.506-.457-.016-1.337-.258-1.99-.471-.802-.26-1.437-.4-1.381-.848.029-.232.318-.47.866-.71 3.384-1.473 5.635-2.445 6.753-2.916 3.215-1.338 3.887-1.571 4.327-1.579z"/></svg>',
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+  trending:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
+  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
+};
+
+/* =================== UTILS =================== */
+function uid(){return Math.random().toString(36).slice(2,10)}
+function formatBytes(b){if(b===0)return '0 B';const k=1024;const u=['B','KB','MB','GB'];const i=Math.floor(Math.log(b)/Math.log(k));return parseFloat((b/Math.pow(k,i)).toFixed(1))+' '+u[i]}
+function formatDuration(ms){const s=Math.floor(ms/1000);const m=Math.floor(s/60);const ss=s%60;return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0')}
+function getFileCategory(type){
+  if(!type) return 'other';
+  if(type.startsWith('image/')) return 'image';
+  if(type.startsWith('video/')) return 'video';
+  if(type.startsWith('audio/')) return 'audio';
+  if(type.includes('pdf')||type.includes('document')||type.includes('text')||type.includes('msword')||type.includes('officedocument')) return 'document';
+  if(type.includes('zip')||type.includes('rar')||type.includes('compressed')||type.includes('7z')) return 'archive';
+  return 'other';
+}
+const categoryIconMap = {image:ICONS.fileImage, video:ICONS.fileVideo, audio:ICONS.fileAudio, document:ICONS.fileText, archive:ICONS.fileArchive, other:ICONS.file};
+const categoryGradientMap = {
+  image:'linear-gradient(135deg,#10b981,#14b8a6)',
+  video:'linear-gradient(135deg,#f43f5e,#ec4899)',
+  audio:'linear-gradient(135deg,#f59e0b,#f97316)',
+  document:'linear-gradient(135deg,#0ea5e9,#06b6d4)',
+  archive:'linear-gradient(135deg,#8b5cf6,#a855f7)',
+  other:'linear-gradient(135deg,#64748b,#475569)',
+};
+function getProcessLabel(t){return {compress:'Kompresi', convert:'Konversi', validate:'Validasi'}[t]||'Memproses'}
+
+/* =================== TOAST =================== */
+function toast(title, desc, type='info'){
+  const c = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = 'toast toast-'+type;
+  const ic = type==='success'?ICONS.check:type==='error'?ICONS.alert:ICONS.sparkles;
+  el.innerHTML = '<div class="toast-icon">'+ic+'</div><div><div class="toast-title">'+title+'</div>'+(desc?'<div class="toast-desc">'+desc+'</div>':'')+'</div>';
+  c.appendChild(el);
+  setTimeout(()=>{el.style.opacity='0'; el.style.transform='translateX(100%)'; setTimeout(()=>el.remove(),300)},3000);
+}
+
+/* =================== TABS =================== */
+document.querySelectorAll('.nav-tab').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const tab = btn.dataset.tab;
+    state.activeTab = tab;
+    document.querySelectorAll('.nav-tab').forEach(b=>{b.classList.toggle('active', b===btn); b.setAttribute('aria-selected', b===btn)});
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+tab));
+  });
+});
+
+/* =================== UPLOAD =================== */
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('file-input');
+const pickBtn = document.getElementById('pick-file-btn');
+
+pickBtn.addEventListener('click', e=>{e.stopPropagation(); fileInput.click()});
+dropzone.addEventListener('click', ()=>fileInput.click());
+fileInput.addEventListener('change', e=>{ if(e.target.files.length) addFiles(e.target.files); e.target.value=''; });
+
+['dragenter','dragover'].forEach(ev=>dropzone.addEventListener(ev, e=>{e.preventDefault(); e.stopPropagation(); dropzone.classList.add('dragging'); document.getElementById('dropzone-title').textContent='Lepaskan file di sini'}));
+['dragleave','drop'].forEach(ev=>dropzone.addEventListener(ev, e=>{e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('dragging'); document.getElementById('dropzone-title').textContent='Tarik & lepas file Anda'}));
+dropzone.addEventListener('drop', e=>{ if(e.dataTransfer.files.length) addFiles(e.dataTransfer.files); });
+
+function addFiles(fileList){
+  if(!state.uploader.name){
+    toast('Identitas pengunggah kosong', 'Silakan masukkan nama Anda di kotak di atas agar tercatat sebagai pengunggah.', 'error');
+    document.getElementById('uploader-name-input').focus();
+    return;
+  }
+  Array.from(fileList).forEach(file=>{
+    const id = uid();
+    const previewUrl = (file.type.startsWith('image/')||file.type.startsWith('video/')) ? URL.createObjectURL(file) : null;
+    const uploadedAt = Date.now();
+    state.files.push({
+      id, name:file.name, size:file.size, type:file.type, status:'uploading', progress:0,
+      processType:null, processProgress:0, result:null, previewUrl,
+      uploadedAt,
+      uploader: state.uploader.name,
+      uploaderInitials: state.uploader.initials,
+      uploaderColor: state.uploader.avatarColor,
+    });
+    addToHistory(state.files[state.files.length-1]);
+    simulateUpload(id);
+  });
+  renderFiles();
+  toast('File ditambahkan', Array.from(fileList).length+' file oleh '+state.uploader.name+' ditambahkan ke antrian.', 'success');
+}
+
+function simulateUpload(id){
+  const file = state.files.find(f=>f.id===id);
+  if(!file) return;
+  const tick = ()=>{
+    file.progress = Math.min(100, file.progress + Math.random()*18 + 5);
+    if(file.progress >= 100){
+      file.status = 'queued';
+      file.progress = 100;
+      renderFiles();
+      return;
+    }
+    renderFiles();
+    setTimeout(tick, 180 + Math.random()*220);
+  };
+  setTimeout(tick, 200);
+}
+
+function removeFile(id){
+  const f = state.files.find(x=>x.id===id);
+  if(f && f.previewUrl) URL.revokeObjectURL(f.previewUrl);
+  state.files = state.files.filter(f=>f.id!==id);
+  renderFiles();
+  renderProcessedFiles();
+  toast('File dihapus', 'File telah dihapus dari daftar.', 'info');
+}
+
+function clearAll(){
+  state.files.forEach(f=>{ if(f.previewUrl) URL.revokeObjectURL(f.previewUrl); });
+  state.files = [];
+  renderFiles();
+  renderProcessedFiles();
+  toast('Daftar dibersihkan', 'Semua file telah dihapus.', 'info');
+}
+
+document.getElementById('clear-all-btn').addEventListener('click', clearAll);
+
+function processFile(id, type){
+  const file = state.files.find(f=>f.id===id);
+  if(!file) return;
+  file.status = 'processing';
+  file.processType = type;
+  file.processProgress = 0;
+  renderFiles();
+  const tick = ()=>{
+    file.processProgress = Math.min(100, file.processProgress + Math.random()*15 + 8);
+    if(file.processProgress >= 100){
+      const ratio = type==='compress' ? Math.random()*45+15 : type==='convert' ? Math.random()*20+5 : 0;
+      const processedSize = type==='compress' ? Math.max(1024, Math.floor(file.size*(1-ratio/100))) : Math.floor(file.size*(1-Math.random()*0.05));
+      file.result = {
+        message: type==='compress' ? 'File berhasil dikompresi.' : type==='convert' ? 'Format berhasil dikonversi.' : 'File tervalidasi, tidak ada korupsi.',
+        originalSize: file.size,
+        processedSize,
+        ratio,
+        durationMs: Math.random()*2000+500,
+      };
+      file.status = 'completed';
+      renderFiles();
+      renderProcessedFiles();
+      toast('Proses selesai', file.name+' — '+getProcessLabel(type)+' selesai'+(ratio>0?(' (-'+ratio.toFixed(1)+'%)'):'')+'.', 'success');
+      return;
+    }
+    renderFiles();
+    setTimeout(tick, 200 + Math.random()*150);
+  };
+  setTimeout(tick, 300);
+}
+
+function renderFiles(){
+  const list = document.getElementById('file-list');
+  const card = document.getElementById('file-list-card');
+  const empty = document.getElementById('empty-state');
+  const stats = document.getElementById('upload-stats');
+
+  if(state.files.length === 0){
+    card.style.display = 'none';
+    empty.style.display = 'block';
+    stats.style.display = 'none';
+    return;
+  }
+  card.style.display = 'block';
+  empty.style.display = 'none';
+  stats.style.display = 'grid';
+
+  // Stats
+  const total = state.files.length;
+  const totalSize = state.files.reduce((s,f)=>s+f.size, 0);
+  const completed = state.files.filter(f=>f.status==='completed').length;
+  const saved = state.files.reduce((s,f)=>s+(f.result?f.result.originalSize-f.result.processedSize:0), 0);
+  stats.innerHTML = `
+    ${statCard('Total File', String(total), ICONS.file, 'linear-gradient(135deg,#8b5cf6,#a855f7)')}
+    ${statCard('Ukuran Total', formatBytes(totalSize), ICONS.fileArchive, 'linear-gradient(135deg,#0ea5e9,#06b6d4)')}
+    ${statCard('Selesai Diproses', String(completed), ICONS.check, 'linear-gradient(135deg,#10b981,#14b8a6)')}
+    ${statCard('Hemat Penyimpanan', saved>0?formatBytes(saved):'-', ICONS.sparkles, 'linear-gradient(135deg,#f59e0b,#f97316)')}
+  `;
+
+  list.innerHTML = state.files.map(f=>{
+    const cat = getFileCategory(f.type);
+    const grad = categoryGradientMap[cat];
+    const isBusy = f.status==='uploading' || f.status==='processing';
+    const canProcess = f.status==='queued' || f.status==='completed';
+    let thumb = '';
+    if(f.previewUrl && cat==='image') thumb = `<img src="${f.previewUrl}" alt="${f.name}" class="file-thumb" />`;
+    else if(f.previewUrl && cat==='video') thumb = `<video src="${f.previewUrl}" class="file-thumb" muted></video>`;
+    else thumb = `<div class="file-icon-box" style="background:${grad}">${categoryIconMap[cat]}</div>`;
+
+    let badge = '';
+    if(f.status==='uploading') badge = `<span class="badge badge-uploading">${ICONS.loader} Mengunggah ${f.progress.toFixed(0)}%</span>`;
+    else if(f.status==='processing') badge = `<span class="badge badge-processing">${ICONS.loader} Memproses</span>`;
+    else if(f.status==='completed') badge = `<span class="badge badge-completed">${ICONS.check} Selesai</span>`;
+    else if(f.status==='error') badge = `<span class="badge badge-error">${ICONS.alert} Gagal</span>`;
+    else badge = `<span class="badge badge-queued">Siap diproses</span>`;
+
+    let progressHtml = '';
+    if(f.status==='uploading') progressHtml = `<div style="margin-top:4px"><div style="display:flex; justify-content:space-between; font-size:11px; color:var(--slate-500)"><span>Proses unggah...</span><span>${f.progress.toFixed(0)}%</span></div><div class="progress"><div class="progress-bar sky" style="width:${f.progress}%"></div></div></div>`;
+    else if(f.status==='processing') progressHtml = `<div style="margin-top:4px"><div style="display:flex; justify-content:space-between; font-size:11px; color:var(--violet-600)"><span>${ICONS.loader} ${getProcessLabel(f.processType)}...</span><span>${f.processProgress.toFixed(0)}%</span></div><div class="progress"><div class="progress-bar" style="width:${f.processProgress}%"></div></div></div>`;
+    else if(f.status==='completed' && f.result){
+      progressHtml = `<div class="result-box">${ICONS.check}<span class="result-text">${f.result.message}</span><span class="badge badge-completed">${formatBytes(f.result.processedSize)}${f.result.ratio>0?` <span style="opacity:.7">(-${f.result.ratio.toFixed(1)}%)</span>`:''}</span></div>`;
+    } else if(f.status==='queued'){
+      progressHtml = `<p style="font-size:11px; color:var(--slate-500); margin-top:2px">File siap diproses. Pilih jenis pemrosesan di bawah ini.</p>`;
+    }
+
+    let actions = '';
+    if(canProcess) actions = `<div class="dropdown" id="dd-${f.id}"><button class="btn btn-primary btn-sm" onclick="toggleDropdown('${f.id}')">${ICONS.wand} Proses</button><div class="dropdown-menu"><button class="dropdown-item" onclick="processFile('${f.id}','compress')">${ICONS.download}<span class="dropdown-item-label"><span>Kompresi</span><small>Kurangi ukuran file</small></span></button><button class="dropdown-item" onclick="processFile('${f.id}','convert')">${ICONS.repeat}<span class="dropdown-item-label"><span>Konversi</span><small>Ubah format</small></span></button><button class="dropdown-item" onclick="processFile('${f.id}','validate')">${ICONS.shield}<span class="dropdown-item-label"><span>Validasi</span><small>Periksa integritas</small></span></button></div></div>`;
+    if(isBusy) actions += `<button class="btn btn-ghost btn-sm" disabled>${ICONS.loader}</button>`;
+    actions += `<button class="btn btn-ghost btn-icon" onclick="removeFile('${f.id}')" aria-label="Hapus ${f.name}">${ICONS.x}</button>`;
+
+    const uploaderBadge = `<div class="uploader-badge"><div class="mini-avatar" style="background:${f.uploaderColor||'linear-gradient(135deg,#94a3b8,#64748b)'}">${f.uploaderInitials||'?'}</div><span>Diunggah oleh <strong style="color:var(--slate-700)">${f.uploader||'Tamu'}</strong></span><span class="upload-time">• ${formatRelative(f.uploadedAt)}</span></div>`;
+
+    return `<div class="file-item"><div style="display:flex; gap:10px; align-items:center; flex:0 0 auto; min-width:0"><div style="flex-shrink:0">${thumb}</div><div class="file-info"><p class="file-name" title="${f.name}">${f.name}</p><p class="file-meta">${formatBytes(f.size)} • ${cat}</p>${badge}${uploaderBadge}</div></div><div style="flex:1; min-width:0">${progressHtml}</div><div class="file-actions">${actions}</div></div>`;
+  }).join('');
+}
+
+function statCard(label, value, icon, gradient){
+  return `<div class="stat-card"><div class="stat-icon" style="background:${gradient}">${icon}</div><div><div class="stat-label">${label}</div><div class="stat-value">${value}</div></div></div>`;
+}
+
+window.toggleDropdown = function(id){
+  const dd = document.getElementById('dd-'+id);
+  if(!dd) return;
+  const isOpen = dd.classList.contains('open');
+  document.querySelectorAll('.dropdown.open').forEach(d=>d.classList.remove('open'));
+  if(!isOpen) dd.classList.add('open');
+};
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.dropdown')) document.querySelectorAll('.dropdown.open').forEach(d=>d.classList.remove('open'));
+});
+window.removeFile = removeFile;
+window.processFile = processFile;
+
+/* =================== SHARE =================== */
+const platforms = [
+  {key:'whatsapp', label:'WhatsApp', icon:ICONS.whatsapp, bg:'bg-wa', color:'c-wa', build:(u,t)=>`https://wa.me/?text=${encodeURIComponent(t+'\n\n'+u)}`},
+  {key:'facebook', label:'Facebook', icon:ICONS.facebook, bg:'bg-fb', color:'c-fb', build:(u)=>`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}`},
+  {key:'twitter', label:'Twitter / X', icon:ICONS.twitter, bg:'bg-tw', color:'c-tw', build:(u,t)=>`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(u)}`},
+  {key:'telegram', label:'Telegram', icon:ICONS.telegram, bg:'bg-tg', color:'c-tg', build:(u,t)=>`https://t.me/share/url?url=${encodeURIComponent(u)}&text=${encodeURIComponent(t)}`},
+  {key:'email', label:'Email', icon:ICONS.mail, bg:'bg-em', color:'c-em', build:(u,t)=>`mailto:?subject=${encodeURIComponent(t)}&body=${encodeURIComponent('Lihat konten menarik ini: '+u)}`},
+];
+
+function getShareUrl(){
+  const slug = document.getElementById('share-slug').value || 'konten';
+  return `${window.location.origin}/s/${slug}`;
+}
+function getShareText(){
+  const t = document.getElementById('share-title').value;
+  const d = document.getElementById('share-desc').value;
+  return `${t} — ${d.slice(0,80)}`;
+}
+
+function renderProcessedFiles(){
+  const list = document.getElementById('processed-files-list');
+  const processed = state.files.filter(f=>f.status==='completed');
+  if(processed.length === 0){
+    list.innerHTML = `<div style="border:1px dashed var(--slate-300); border-radius:8px; padding:24px; text-align:center"><div style="color:var(--slate-400); margin-bottom:6px">${ICONS.file}</div><p style="font-size:13px; color:var(--slate-600)">Belum ada konten yang siap dibagikan.</p><p style="font-size:11px; color:var(--slate-500); margin-top:4px">Buka tab <strong>Upload &amp; Proses</strong>, unggah file, lalu proses agar muncul di sini.</p></div>`;
+    return;
+  }
+  if(!state.selectedFileId || !processed.find(f=>f.id===state.selectedFileId)) state.selectedFileId = processed[0].id;
+  list.innerHTML = `<div style="display:flex; flex-direction:column; gap:8px; max-height:224px; overflow-y:auto">${processed.map(f=>{
+    const cat = getFileCategory(f.type);
+    const active = state.selectedFileId === f.id;
+    let thumb = '';
+    if(f.previewUrl && cat==='image') thumb = `<img src="${f.previewUrl}" alt="${f.name}" style="width:40px;height:40px;border-radius:6px;object-fit:cover;flex-shrink:0" />`;
+    else thumb = `<div style="width:40px;height:40px;border-radius:6px;background:linear-gradient(135deg,var(--violet-500),var(--fuchsia-500));display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0">${categoryIconMap[cat]||ICONS.file}</div>`;
+    return `<button type="button" onclick="selectFile('${f.id}')" style="display:flex; align-items:center; gap:10px; padding:8px; border-radius:8px; border:1px solid ${active?'var(--violet-400)':'var(--slate-200)'}; background:${active?'rgba(139,92,246,.06)':'transparent'}; text-align:left; cursor:pointer; width:100%; font-family:inherit; ${active?'box-shadow:0 0 0 1px var(--violet-300)':''}">${thumb}<div style="flex:1; min-width:0"><div style="font-size:13px; font-weight:500; color:var(--slate-900); overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${f.name}</div><div style="font-size:11px; color:var(--slate-500)">${f.result?formatBytes(f.result.processedSize):formatBytes(f.size)}${f.processType?' • '+f.processType:''}</div></div>${active?'<span style="color:var(--violet-600); flex-shrink:0">'+ICONS.check+'</span>':''}</button>`;
+  }).join('')}</div>`;
+}
+
+window.selectFile = function(id){
+  state.selectedFileId = id;
+  renderProcessedFiles();
+  updatePreview();
+};
+
+function updatePreview(){
+  const processed = state.files.filter(f=>f.status==='completed');
+  const sel = processed.find(f=>f.id===state.selectedFileId);
+  const media = document.getElementById('preview-media');
+  if(sel && sel.previewUrl && getFileCategory(sel.type)==='image'){
+    media.innerHTML = `<img src="${sel.previewUrl}" alt="${sel.name}" /><span class="preview-badge">${getFileCategory(sel.type)}</span>`;
+  } else if(sel && sel.previewUrl && getFileCategory(sel.type)==='video'){
+    media.innerHTML = `<video src="${sel.previewUrl}" controls playsinline></video><span class="preview-badge">${getFileCategory(sel.type)}</span>`;
+  } else {
+    media.innerHTML = `<div class="placeholder">${ICONS.file}<span style="font-size:11px">Tidak ada pratinjau visual</span></div>${sel?`<span class="preview-badge">${getFileCategory(sel.type)}</span>`:''}`;
+  }
+  document.getElementById('preview-title').textContent = document.getElementById('share-title').value;
+  document.getElementById('preview-desc').textContent = document.getElementById('share-desc').value;
+  document.getElementById('preview-url').textContent = getShareUrl();
+  document.getElementById('share-url-display').textContent = getShareUrl();
+}
+
+function renderPlatforms(){
+  const grid = document.getElementById('platform-grid');
+  grid.innerHTML = platforms.map(p=>`<button class="platform-btn ${p.bg}" onclick="shareToPlatform('${p.key}')"><span class="${p.color}">${p.icon}</span><div><span class="platform-name">${p.label}</span><span class="platform-stat">${state.shareStats[p.key]||0} kali dibagikan</span></div></button>`).join('');
+}
+
+window.shareToPlatform = function(key){
+  const p = platforms.find(x=>x.key===key);
+  if(!p) return;
+  const url = p.build(getShareUrl(), getShareText());
+  window.open(url, '_blank', 'noopener,noreferrer,width=720,height=640');
+  state.shareStats[key] = (state.shareStats[key]||0)+1;
+  renderPlatforms();
+  renderShareStats();
+  toast('Bagikan ke '+p.label, 'Jendela berbagi telah dibuka di tab baru.', 'success');
+};
+
+function renderShareStats(){
+  const total = Object.values(state.shareStats).reduce((a,b)=>a+b,0);
+  document.getElementById('stat-mini-grid').innerHTML = `
+    ${statMini(ICONS.share, 'Total Share', total, 'linear-gradient(135deg,var(--violet-500),var(--fuchsia-500))')}
+    ${statMini(ICONS.eye, 'Tayangan', total*8, 'linear-gradient(135deg,var(--sky-500),#0284c7)')}
+    ${statMini(ICONS.users, 'Pengunjung', Math.round(total*3.4), 'linear-gradient(135deg,var(--emerald-500),var(--emerald-600))')}
+  `;
+  document.getElementById('stat-bars').innerHTML = platforms.map(p=>{
+    const c = state.shareStats[p.key]||0;
+    const pct = total>0 ? (c/total)*100 : 0;
+    return `<div class="stat-bar-row"><span class="${p.color}">${p.icon}</span><span class="name">${p.label}</span><div class="stat-bar-bg"><div class="stat-bar-fg" style="width:${pct}%"></div></div><span class="count">${c}</span></div>`;
+  }).join('');
+}
+
+function statMini(icon, label, value, gradient){
+  return `<div class="stat-mini"><div class="stat-mini-icon" style="background:${gradient}">${icon}</div><span class="stat-mini-value">${value}</span><span class="stat-mini-label">${label}</span></div>`;
+}
+
+document.getElementById('share-title').addEventListener('input', updatePreview);
+document.getElementById('share-desc').addEventListener('input', updatePreview);
+document.getElementById('share-slug').addEventListener('input', e=>{
+  e.target.value = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+  updatePreview();
+  drawQR();
+});
+
+document.getElementById('copy-link-btn').addEventListener('click', async ()=>{
+  const url = getShareUrl();
+  try{
+    await navigator.clipboard.writeText(url);
+    state.shareStats.link++;
+    const lbl = document.getElementById('copy-link-label');
+    lbl.textContent = 'Tersalin';
+    setTimeout(()=>lbl.textContent='Salin Tautan', 1800);
+    renderShareStats();
+    toast('Tautan disalin', 'Tautan berhasil disalin ke papan klip.', 'success');
+  }catch{
+    toast('Gagal menyalin', 'Peramban tidak mendukung penyalinan otomatis. Salin manual ya.', 'error');
+  }
+});
+document.getElementById('open-link-btn').addEventListener('click', ()=>{
+  window.open(getShareUrl(), '_blank', 'noopener,noreferrer');
+  toast('Membuka tautan', 'Tautan dibuka di tab baru.', 'info');
+});
+
+// Native share
+if(navigator.share){
+  const btn = document.getElementById('native-share-btn');
+  btn.style.display = 'inline-flex';
+  btn.addEventListener('click', async ()=>{
+    try{
+      await navigator.share({title:document.getElementById('share-title').value, text:document.getElementById('share-desc').value, url:getShareUrl()});
+      state.shareStats.link++;
+      renderShareStats();
+      toast('Dibagikan', 'Konten telah dibagikan melalui Web Share API.', 'success');
+    }catch(err){
+      if(err.name !== 'AbortError') toast('Gagal berbagi', 'Terjadi kesalahan saat membuka dialog berbagi.', 'error');
+    }
+  });
+}
+
+// QR toggle
+document.getElementById('qr-toggle').addEventListener('change', e=>{
+  document.getElementById('qr-card').style.display = e.target.checked ? 'block' : 'none';
+});
+
+/* === Simple QR Code generator (numeric/alphanumeric fallback, draws deterministic pattern) === */
+/* Using a lightweight algorithm: draw a deterministic block pattern from URL hash.
+   For real production use, integrate a proper QR library. This produces a scannable-looking QR for demo. */
+function drawQR(){
+  const canvas = document.getElementById('qr-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const size = 180, modules = 25;
+  const cell = size/modules;
+  const url = getShareUrl();
+  // Simple hash for pseudo-random pattern
+  let h = 5381;
+  for(let i=0;i<url.length;i++){ h = ((h<<5)+h) + url.charCodeAt(i); h = h & 0xffffffff; }
+  function rand(){ h = (h*1103515245+12345) & 0x7fffffff; return (h/0x7fffffff); }
+  ctx.fillStyle = '#fff'; ctx.fillRect(0,0,size,size);
+  ctx.fillStyle = '#1e1b4b';
+  // Finder patterns (3 corners)
+  function finder(x,y){
+    ctx.fillRect(x*cell, y*cell, 7*cell, 7*cell);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect((x+1)*cell, (y+1)*cell, 5*cell, 5*cell);
+    ctx.fillStyle = '#1e1b4b';
+    ctx.fillRect((x+2)*cell, (y+2)*cell, 3*cell, 3*cell);
+  }
+  finder(0,0); finder(modules-7,0); finder(0,modules-7);
+  // Data modules
+  for(let y=0;y<modules;y++){
+    for(let x=0;x<modules;x++){
+      // Skip finder patterns
+      if((x<8 && y<8) || (x>=modules-8 && y<8) || (x<8 && y>=modules-8)) continue;
+      if(rand() > 0.5) ctx.fillRect(x*cell, y*cell, cell, cell);
+    }
+  }
+  // Timing patterns
+  ctx.fillStyle = '#1e1b4b';
+  for(let i=8;i<modules-8;i++){
+    if(i%2===0){ ctx.fillRect(i*cell, 6*cell, cell, cell); ctx.fillRect(6*cell, i*cell, cell, cell); }
+  }
+}
+
+/* =================== LIVE STREAM =================== */
+const videoEl = document.getElementById('live-video');
+const placeholder = document.getElementById('video-placeholder');
+const overlay = document.getElementById('live-overlay');
+
+document.getElementById('enable-media-btn').addEventListener('click', async ()=>{
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
+    state.stream.mediaStream = stream;
+    state.stream.camEnabled = true;
+    state.stream.micEnabled = true;
+    videoEl.srcObject = stream;
+    placeholder.style.display = 'none';
+    document.getElementById('start-stream-btn').disabled = false;
+    document.getElementById('enable-media-btn').disabled = true;
+    document.getElementById('enable-media-btn').textContent = 'Perangkat Aktif';
+    document.getElementById('toggle-cam-btn').disabled = false;
+    document.getElementById('toggle-mic-btn').disabled = false;
+    document.getElementById('toggle-cam-btn').classList.add('active');
+    document.getElementById('toggle-mic-btn').classList.add('active');
+    document.getElementById('live-status-desc').textContent = 'Kamera & mikrofon aktif. Siap memulai siaran.';
+    toast('Perangkat aktif', 'Kamera & mikrofon berhasil diaktifkan.', 'success');
+  }catch(err){
+    let msg = 'Terjadi kesalahan saat mengakses perangkat.';
+    if(err.name==='NotAllowedError') msg = 'Izin kamera/mikrofon ditolak. Berikan izin di pengaturan peramban.';
+    else if(err.name==='NotFoundError') msg = 'Tidak ada kamera/mikrofon yang ditemukan di perangkat.';
+    else if(err.name==='NotReadableError') msg = 'Perangkat kamera/mikrofon sedang digunakan aplikasi lain.';
+    toast('Gagal mengaktifkan perangkat', msg, 'error');
+  }
+});
+
+document.getElementById('toggle-cam-btn').addEventListener('click', ()=>{
+  if(!state.stream.mediaStream) return;
+  state.stream.camEnabled = !state.stream.camEnabled;
+  state.stream.mediaStream.getVideoTracks().forEach(t=>t.enabled = state.stream.camEnabled);
+  const btn = document.getElementById('toggle-cam-btn');
+  btn.classList.toggle('active', state.stream.camEnabled);
+  btn.lastChild.textContent = state.stream.camEnabled ? ' Kamera Aktif' : ' Kamera Nonaktif';
+  placeholder.style.display = state.stream.camEnabled ? 'none' : 'flex';
+  toast('Kamera '+(state.stream.camEnabled?'aktif':'nonaktif'), '', 'info');
+});
+
+document.getElementById('toggle-mic-btn').addEventListener('click', ()=>{
+  if(!state.stream.mediaStream) return;
+  state.stream.micEnabled = !state.stream.micEnabled;
+  state.stream.mediaStream.getAudioTracks().forEach(t=>t.enabled = state.stream.micEnabled);
+  const btn = document.getElementById('toggle-mic-btn');
+  btn.classList.toggle('active', state.stream.micEnabled);
+  btn.lastChild.textContent = state.stream.micEnabled ? ' Mikrofon Aktif' : ' Mikrofon Nonaktif';
+  toast('Mikrofon '+(state.stream.micEnabled?'aktif':'nonaktif'), '', 'info');
+});
+
+document.getElementById('start-stream-btn').addEventListener('click', ()=>{
+  if(!state.stream.mediaStream) return;
+  state.stream.isLive = true;
+  state.stream.viewers = 0;
+  state.stream.peakViewers = 0;
+  state.stream.hearts = 0;
+  state.stream.totalHearts = 0;
+  state.stream.startTime = Date.now();
+  state.stream.history = Array(30).fill(0);
+  overlay.style.display = 'block';
+  document.getElementById('start-stream-btn').disabled = true;
+  document.getElementById('stop-stream-btn').disabled = false;
+  document.getElementById('publish-state').textContent = '🔴 LIVE';
+  document.getElementById('publish-state').style.color = 'var(--rose-500)';
+  document.getElementById('publish-url').textContent = window.location.origin+'/live/'+uid();
+  document.getElementById('publish-category').textContent = document.querySelector('#live-category option:checked').text;
+  document.getElementById('publish-privacy').textContent = document.querySelector('#live-privacy option:checked').text.includes('Publik') ? 'Publik' : 'Privat';
+  toast('Siaran dimulai', 'Anda sekarang SIARAN LANGSUNG. Penonton dapat menonton.', 'success');
+  // Duration timer
+  state.stream.durationTimer = setInterval(()=>{
+    const el = document.getElementById('live-duration');
+    if(el) el.textContent = formatDuration(Date.now() - state.stream.startTime);
+  }, 1000);
+  // Viewer fluctuation
+  state.stream.viewerTimer = setInterval(()=>{
+    const delta = Math.floor(Math.random()*7) - 2;
+    state.stream.viewers = Math.max(0, state.stream.viewers + delta + (Math.random()<0.3?3:0));
+    if(state.stream.viewers > state.stream.peakViewers) state.stream.peakViewers = state.stream.viewers;
+    state.stream.history.push(state.stream.viewers);
+    if(state.stream.history.length > 30) state.stream.history.shift();
+    document.getElementById('live-viewers').textContent = state.stream.viewers;
+    document.getElementById('stat-current-viewers').textContent = state.stream.viewers;
+    document.getElementById('stat-peak-viewers').textContent = state.stream.peakViewers;
+    renderSparkline();
+  }, 2000);
+  // Heart beats
+  state.stream.heartTimer = setInterval(()=>{
+    if(Math.random() < 0.4 && state.stream.viewers > 0){
+      const h = Math.floor(Math.random()*5)+1;
+      state.stream.hearts += h;
+      state.stream.totalHearts += h;
+      document.getElementById('live-hearts').textContent = state.stream.hearts;
+      document.getElementById('stat-total-hearts').textContent = state.stream.totalHearts;
+    }
+  }, 3000);
+});
+
+document.getElementById('stop-stream-btn').addEventListener('click', ()=>{
+  state.stream.isLive = false;
+  clearInterval(state.stream.durationTimer);
+  clearInterval(state.stream.viewerTimer);
+  clearInterval(state.stream.heartTimer);
+  overlay.style.display = 'none';
+  document.getElementById('start-stream-btn').disabled = false;
+  document.getElementById('stop-stream-btn').disabled = true;
+  document.getElementById('publish-state').textContent = 'Selesai';
+  document.getElementById('publish-state').style.color = 'var(--slate-900)';
+  toast('Siaran diakhiri', 'Siaran langsung telah berakhir. Terima kasih!', 'info');
+});
+
+function renderSparkline(){
+  const el = document.getElementById('sparkline');
+  if(!el) return;
+  const max = Math.max(...state.stream.history, 1);
+  el.innerHTML = state.stream.history.map(v=>`<div class="spark-bar" style="height:${Math.max(4, (v/max)*100)}%"></div>`).join('');
+}
+
+/* Live settings change */
+document.getElementById('live-privacy').addEventListener('change', e=>{
+  if(!state.stream.isLive) document.getElementById('publish-privacy').textContent = e.target.options[e.target.selectedIndex].text.includes('Publik') ? 'Publik' : 'Privat';
+});
+document.getElementById('live-category').addEventListener('change', e=>{
+  if(!state.stream.isLive) document.getElementById('publish-category').textContent = e.target.options[e.target.selectedIndex].text;
+});
+
+/* =================== INIT =================== */
+loadUploader();
+loadHistory();
+renderFiles();
+renderProcessedFiles();
+renderPlatforms();
+renderShareStats();
+updatePreview();
+drawQR();
+renderSparkline();
+
+/* Refresh relative timestamps every minute */
+setInterval(()=>{
+  renderHistory();
+  if(state.files.length > 0) renderFiles();
+}, 60000);
+</script>
+</body>
+</html>
