@@ -514,6 +514,148 @@
   .archive-item-size{font-size:10px; color:var(--slate-400); flex-shrink:0}
   .archive-loading{padding:20px; text-align:center; color:var(--slate-500); font-size:12px}
   .archive-loading .spin{display:inline-block; animation:spin 1s linear infinite; margin-right:6px}
+  /* === BERANDA FEED === */
+  .beranda-header{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    margin-bottom:14px; flex-wrap:wrap;
+  }
+  .beranda-title{font-size:18px; font-weight:700; color:var(--slate-900); display:flex; align-items:center; gap:8px}
+  .beranda-title svg{width:20px;height:20px; color:var(--violet-600)}
+  .beranda-filters{display:flex; gap:6px; flex-wrap:wrap}
+  .filter-btn{
+    padding:6px 12px; font-size:12px; font-weight:500; border:1px solid var(--slate-300);
+    background:#fff; color:var(--slate-600); border-radius:999px; cursor:pointer; font-family:inherit;
+    display:inline-flex; align-items:center; gap:5px;
+  }
+  .filter-btn svg{width:13px;height:13px}
+  .filter-btn:hover{border-color:var(--violet-400); color:var(--violet-700)}
+  .filter-btn.active{background:linear-gradient(135deg,var(--violet-600),var(--fuchsia-600)); color:#fff; border-color:transparent}
+  .beranda-feed{display:flex; flex-direction:column; gap:14px}
+  .beranda-post{
+    background:#fff; border:1px solid var(--slate-200); border-radius:14px;
+    overflow:hidden; box-shadow:var(--shadow-sm); transition:box-shadow .2s;
+  }
+  .beranda-post:hover{box-shadow:var(--shadow-md)}
+  .post-header{display:flex; align-items:center; gap:10px; padding:12px 14px}
+  .post-avatar{
+    width:38px;height:38px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:13px;
+  }
+  .post-user-info{flex:1; min-width:0}
+  .post-user-name{font-size:13px; font-weight:600; color:var(--slate-900)}
+  .post-meta{font-size:11px; color:var(--slate-500); margin-top:1px}
+  .post-type-badge{
+    padding:3px 8px; border-radius:6px; font-size:10px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.4px;
+  }
+  .badge-image{background:rgba(16,185,129,.15); color:var(--emerald-600)}
+  .badge-video{background:rgba(244,63,94,.15); color:var(--rose-500)}
+  .badge-short{background:rgba(245,158,11,.15); color:var(--amber-500)}
+  .badge-document{background:rgba(14,165,233,.15); color:var(--sky-500)}
+  .badge-archive{background:rgba(139,92,246,.15); color:var(--violet-600)}
+  .badge-audio{background:rgba(245,158,11,.15); color:var(--amber-500)}
+  .post-media{
+    width:100%; max-height:560px; background:var(--slate-900); display:flex;
+    align-items:center; justify-content:center; overflow:hidden;
+  }
+  .post-media img, .post-media video{width:100%; max-height:560px; object-fit:contain; display:block}
+  .post-doc{
+    padding:20px; display:flex; align-items:center; gap:14px;
+    background:linear-gradient(135deg,var(--slate-50),var(--slate-100));
+  }
+  .post-doc-icon{
+    width:54px;height:54px;border-radius:10px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+  }
+  .post-doc-icon svg{width:24px;height:24px}
+  .post-doc-info{flex:1; min-width:0}
+  .post-doc-name{font-size:14px; font-weight:600; color:var(--slate-900); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .post-doc-meta{font-size:11px; color:var(--slate-500); margin-top:2px}
+  .post-caption{padding:10px 14px 4px; font-size:13px; color:var(--slate-700); line-height:1.5}
+  .post-stats{padding:4px 14px; font-size:11px; color:var(--slate-500); display:flex; gap:14px}
+  .post-actions{
+    display:flex; align-items:center; padding:6px 10px; border-top:1px solid var(--slate-100);
+  }
+  .action-btn{
+    flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+    padding:8px; border:none; background:transparent; cursor:pointer; font-family:inherit;
+    font-size:12px; color:var(--slate-600); border-radius:8px; transition:all .15s;
+  }
+  .action-btn:hover{background:var(--slate-100); color:var(--slate-900)}
+  .action-btn svg{width:16px;height:16px}
+  .action-btn.liked{color:var(--rose-500)}
+  .action-btn.liked svg{fill:var(--rose-500)}
+  .comments-section{padding:8px 14px 12px; border-top:1px solid var(--slate-100); display:none}
+  .comments-section.open{display:block}
+  .comment-item{display:flex; gap:8px; padding:6px 0; font-size:12px}
+  .comment-avatar{width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600}
+  .comment-body{flex:1; min-width:0}
+  .comment-user{font-weight:600; color:var(--slate-900); margin-right:5px}
+  .comment-text{color:var(--slate-700); word-wrap:break-word}
+  .comment-time{font-size:10px; color:var(--slate-400); margin-top:2px}
+  .comment-input-row{display:flex; gap:6px; margin-top:8px}
+  .comment-input{flex:1; padding:7px 10px; font-size:12px; border:1px solid var(--slate-300); border-radius:7px; font-family:inherit}
+  .comment-input:focus{outline:none; border-color:var(--violet-500); box-shadow:0 0 0 3px rgba(139,92,246,.15)}
+  .comment-send{padding:7px 12px; font-size:12px; background:var(--violet-600); color:#fff; border:none; border-radius:7px; cursor:pointer; font-family:inherit}
+  .comment-send:hover{background:var(--violet-700)}
+  .beranda-empty{
+    text-align:center; padding:48px 20px; color:var(--slate-400);
+    border:1px dashed var(--slate-300); border-radius:14px;
+  }
+  .beranda-empty svg{width:48px;height:48px; margin:0 auto 12px; color:var(--slate-300)}
+  .beranda-empty p{font-size:14px; margin-bottom:4px}
+  .beranda-empty small{font-size:12px; color:var(--slate-500)}
+
+  /* === SHORTS === */
+  .shorts-container{
+    height:calc(100vh - 180px); min-height:520px; overflow-y:scroll; scroll-snap-type:y mandatory;
+    border-radius:16px; background:var(--slate-950); position:relative;
+  }
+  .shorts-container::-webkit-scrollbar{width:0}
+  .short-item{
+    height:100%; scroll-snap-align:start; scroll-snap-stop:always;
+    position:relative; display:flex; align-items:center; justify-content:center;
+    background:#000;
+  }
+  .short-video{max-width:100%; max-height:100%; object-fit:contain}
+  .short-overlay{
+    position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.3) 0%,transparent 30%,transparent 70%,rgba(0,0,0,.7) 100%);
+  }
+  .short-info{
+    position:absolute; bottom:20px; left:20px; right:80px; color:#fff; pointer-events:auto;
+  }
+  .short-user{display:flex; align-items:center; gap:8px; margin-bottom:8px}
+  .short-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:12px}
+  .short-username{font-size:14px; font-weight:600}
+  .short-caption{font-size:13px; color:rgba(255,255,255,.9); line-height:1.4; margin-bottom:6px; word-wrap:break-word}
+  .short-meta{font-size:11px; color:rgba(255,255,255,.6)}
+  .short-actions{
+    position:absolute; right:16px; bottom:24px; display:flex; flex-direction:column; gap:18px;
+    pointer-events:auto;
+  }
+  .short-action{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    background:transparent; border:none; cursor:pointer; color:#fff; font-family:inherit;
+  }
+  .short-action-icon{
+    width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,.15);
+    display:flex; align-items:center; justify-content:center; backdrop-filter:blur(6px);
+    transition:all .15s;
+  }
+  .short-action:hover .short-action-icon{background:rgba(255,255,255,.25); transform:scale(1.05)}
+  .short-action.liked .short-action-icon{background:rgba(244,63,94,.3)}
+  .short-action.liked .short-action-icon svg{fill:var(--rose-500); color:var(--rose-500)}
+  .short-action-icon svg{width:22px;height:22px}
+  .short-action-count{font-size:11px; font-weight:600}
+  .short-empty{
+    height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:var(--slate-400); text-align:center; padding:20px;
+  }
+  .short-empty svg{width:56px;height:56px; margin-bottom:14px; color:var(--slate-700)}
+  .short-empty h3{font-size:16px; color:var(--slate-300); margin-bottom:6px}
+  .short-empty p{font-size:12px; color:var(--slate-500); max-width:320px; line-height:1.5}
+
   /* Footer */
   footer.app-footer{
     border-top:1px solid var(--slate-200); background:rgba(255,255,255,.6);
@@ -569,7 +711,15 @@
         KontenHub
       </div>
       <nav class="nav-tabs" role="tablist">
-        <button class="nav-tab active" data-tab="upload" role="tab" aria-selected="true">
+        <button class="nav-tab active" data-tab="beranda" role="tab" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Beranda
+        </button>
+        <button class="nav-tab" data-tab="shorts" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Shorts
+        </button>
+        <button class="nav-tab" data-tab="upload" role="tab">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           Upload &amp; Proses
         </button>
@@ -600,8 +750,42 @@
         </div>
       </section>
 
+      <!-- ====================== TAB BERANDA ====================== -->
+      <section class="tab-panel active" id="panel-beranda" role="tabpanel">
+        <div class="beranda-header">
+          <div class="beranda-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Beranda — Publikasi Global
+          </div>
+          <div class="beranda-filters" id="beranda-filters">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="image">Gambar</button>
+            <button class="filter-btn" data-filter="video">Video</button>
+            <button class="filter-btn" data-filter="document">Dokumen</button>
+            <button class="filter-btn" data-filter="archive">Arsip</button>
+          </div>
+        </div>
+        <div class="privacy-notice" style="margin-bottom:14px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <div><strong>Beranda Publik.</strong> Semua unggahan dari semua pengunggah di browser ini tampil di sini secara global. Like, komentar, &amp; bagikan ke semua orang. Klik <strong>Shorts</strong> untuk video pendek.</div>
+        </div>
+        <div class="beranda-feed" id="beranda-feed"></div>
+      </section>
+
+      <!-- ====================== TAB SHORTS ====================== -->
+      <section class="tab-panel" id="panel-shorts" role="tabpanel">
+        <div class="beranda-header">
+          <div class="beranda-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            Shorts — Video Pendek
+          </div>
+          <div style="font-size:12px; color:var(--slate-500)">Scroll vertikal untuk navigasi • Klik video untuk play/pause</div>
+        </div>
+        <div class="shorts-container" id="shorts-container"></div>
+      </section>
+
       <!-- ====================== TAB 1: UPLOAD & PROSES ====================== -->
-      <section class="tab-panel active" id="panel-upload" role="tabpanel">
+      <section class="tab-panel" id="panel-upload" role="tabpanel">
         <!-- Privacy Notice -->
         <div class="privacy-notice">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
@@ -1426,6 +1610,11 @@ async function loadFilesFromDB(){
       uploaderInitials: rec.uploaderInitials || '?',
       uploaderColor: rec.uploaderColor || 'linear-gradient(135deg,#94a3b8,#64748b)',
       rawFile,
+      duration: rec.duration || null,
+      likes: rec.likes || [],
+      comments: rec.comments || [],
+      views: rec.views || 0,
+      caption: rec.caption || '',
     });
   });
   // Sinkronkan history: tambahkan record yang belum ada
@@ -1480,6 +1669,12 @@ const ICONS = {
   trending:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
   users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
   share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  message:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  send:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  comment:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
 };
 
 /* =================== UTILS =================== */
@@ -1558,16 +1753,51 @@ function addFiles(fileList){
       uploaderInitials: state.uploader.initials,
       uploaderColor: state.uploader.avatarColor,
       rawFile: file,
+      duration: null, // akan diisi async untuk video
+      likes: [],
+      comments: [],
+      views: 0,
+      caption: '',
     };
     state.files.push(fileObj);
     addToHistory(fileObj);
     dbAddFile(fileObj);
     simulateUpload(id);
+    // Untuk video: dapatkan duration untuk deteksi shorts
+    if(file.type.startsWith('video/')){
+      getVideoDuration(file).then(dur=>{
+        const f = state.files.find(x=>x.id===id);
+        if(f){
+          f.duration = dur;
+          dbUpdateFile(id, { duration: dur });
+          renderBeranda();
+          renderShorts();
+          renderGallery();
+        }
+      });
+    }
   });
   renderFiles();
   renderGallery();
+  renderBeranda();
   renderProcessedFiles();
   toast('File ditambahkan', Array.from(fileList).length+' file oleh '+state.uploader.name+' ditambahkan ke antrian.', 'success');
+}
+
+async function getVideoDuration(file){
+  return new Promise(resolve=>{
+    try{
+      const video = document.createElement('video');
+      video.preload = 'metadata';
+      video.onloadedmetadata = ()=>{
+        const d = video.duration || 0;
+        URL.revokeObjectURL(video.src);
+        resolve(d);
+      };
+      video.onerror = ()=>{ resolve(0); };
+      video.src = URL.createObjectURL(file);
+    }catch{ resolve(0); }
+  });
 }
 
 function simulateUpload(id){
@@ -2184,6 +2414,233 @@ document.getElementById('live-category').addEventListener('change', e=>{
   if(!state.stream.isLive) document.getElementById('publish-category').textContent = e.target.options[e.target.selectedIndex].text;
 });
 
+/* =================== BERANDA & SHORTS =================== */
+state.berandaFilter = 'all';
+
+function renderBeranda(){
+  const feed = document.getElementById('beranda-feed');
+  if(!feed) return;
+  // Tampilkan file yang sudah selesai upload (queued/completed), exclude video pendek jika filter bukan short
+  let posts = state.files.filter(f=>f.status==='queued' || f.status==='completed');
+  if(state.berandaFilter !== 'all'){
+    posts = posts.filter(f=>{
+      const cat = getFileCategory(f.type);
+      if(state.berandaFilter === 'video'){
+        return cat === 'video' && !(f.duration && f.duration < 60); // video panjang
+      }
+      return cat === state.berandaFilter;
+    });
+  }
+  // Sort: terbaru di atas
+  posts.sort((a,b)=>b.uploadedAt - a.uploadedAt);
+  if(posts.length === 0){
+    feed.innerHTML = `<div class="beranda-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><p>Belum ada unggahan publik</p><small>Unggah file di tab "Upload & Proses", maka akan otomatis tampil di Beranda untuk semua orang lihat.</small></div>`;
+    return;
+  }
+  feed.innerHTML = posts.map(f=>renderBerandaPost(f)).join('');
+}
+
+function renderBerandaPost(f){
+  const cat = getFileCategory(f.type);
+  const grad = categoryGradientMap[cat];
+  const isShort = cat==='video' && f.duration && f.duration < 60;
+  const typeBadge = isShort ? `<span class="post-type-badge badge-short">Short • ${formatDuration((f.duration||0)*1000)}</span>` :
+    cat==='video' ? `<span class="post-type-badge badge-video">Video${f.duration?' • '+formatDuration(f.duration*1000):''}</span>` :
+    `<span class="post-type-badge badge-${cat}">${cat}</span>`;
+  const liked = f.likes && f.likes.includes(state.uploader.name);
+  const likeCount = f.likes ? f.likes.length : 0;
+  const commentCount = f.comments ? f.comments.length : 0;
+  // Media HTML per kategori
+  let mediaHtml = '';
+  if(f.previewUrl && cat==='image'){
+    mediaHtml = `<div class="post-media"><img src="${f.previewUrl}" alt="${f.name}" /></div>`;
+  } else if(f.previewUrl && cat==='video'){
+    mediaHtml = `<div class="post-media"><video src="${f.previewUrl}" controls playsinline preload="metadata"></video></div>`;
+  } else if(cat==='audio'){
+    mediaHtml = `<div class="post-doc"><div class="post-doc-icon" style="background:${grad}">${categoryIconMap[cat]}</div><div class="post-doc-info"><div class="post-doc-name">${f.name}</div><div class="post-doc-meta">${formatBytes(f.size)} • Audio</div></div></div>`;
+  } else if(cat==='document'){
+    mediaHtml = `<div class="post-doc"><div class="post-doc-icon" style="background:${grad}">${categoryIconMap[cat]}</div><div class="post-doc-info"><div class="post-doc-name">${f.name}</div><div class="post-doc-meta">${formatBytes(f.size)} • Dokumen • .${(f.name.split('.').pop()||'').toLowerCase()}</div></div><button class="btn btn-outline btn-sm" onclick="openFileDetail('${f.id}')">Lihat Detail</button></div>`;
+  } else if(cat==='archive'){
+    mediaHtml = `<div class="post-doc"><div class="post-doc-icon" style="background:${grad}">${categoryIconMap[cat]}</div><div class="post-doc-info"><div class="post-doc-name">${f.name}</div><div class="post-doc-meta">${formatBytes(f.size)} • Arsip • .${(f.name.split('.').pop()||'').toLowerCase()}</div></div><button class="btn btn-outline btn-sm" onclick="openFileDetail('${f.id}')">Lihat Isi</button></div>`;
+  } else {
+    mediaHtml = `<div class="post-doc"><div class="post-doc-icon" style="background:${grad}">${categoryIconMap[cat]||ICONS.file}</div><div class="post-doc-info"><div class="post-doc-name">${f.name}</div><div class="post-doc-meta">${formatBytes(f.size)} • ${cat}</div></div></div>`;
+  }
+  const caption = f.caption || ('File: ' + f.name);
+  const commentsHtml = (f.comments||[]).map(c=>`<div class="comment-item"><div class="comment-avatar" style="background:${c.color||'linear-gradient(135deg,#94a3b8,#64748b)'}">${c.initials||'?'}</div><div class="comment-body"><span class="comment-user">${c.user}</span><span class="comment-text">${escapeHtml(c.text)}</span><div class="comment-time">${formatRelative(c.timestamp)}</div></div></div>`).join('');
+  return `<div class="beranda-post" data-id="${f.id}">
+    <div class="post-header">
+      <div class="post-avatar" style="background:${f.uploaderColor||'linear-gradient(135deg,#94a3b8,#64748b)'}">${f.uploaderInitials||'?'}</div>
+      <div class="post-user-info">
+        <div class="post-user-name">${f.uploader||'Tamu'}</div>
+        <div class="post-meta">${formatRelative(f.uploadedAt)} • ${formatBytes(f.size)}</div>
+      </div>
+      ${typeBadge}
+    </div>
+    ${mediaHtml}
+    <div class="post-caption">${escapeHtml(caption)}</div>
+    <div class="post-stats"><span>${f.views||0} tayangan</span><span>${likeCount} suka</span><span>${commentCount} komentar</span></div>
+    <div class="post-actions">
+      <button class="action-btn ${liked?'liked':''}" onclick="toggleLike('${f.id}')">${ICONS.heart} <span>${likeCount}</span></button>
+      <button class="action-btn" onclick="toggleComments('${f.id}')">${ICONS.message} <span>${commentCount}</span></button>
+      <button class="action-btn" onclick="sharePost('${f.id}')">${ICONS.share} <span>Bagikan</span></button>
+      <button class="action-btn" onclick="openFileDetail('${f.id}')">${ICONS.eye} <span>Detail</span></button>
+    </div>
+    <div class="comments-section" id="comments-${f.id}">
+      ${commentsHtml}
+      <div class="comment-input-row">
+        <input class="comment-input" id="comment-input-${f.id}" placeholder="Tulis komentar..." maxlength="200" />
+        <button class="comment-send" onclick="addComment('${f.id}')">${ICONS.send}</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderShorts(){
+  const container = document.getElementById('shorts-container');
+  if(!container) return;
+  // Shorts = video dengan durasi < 60 detik
+  const shorts = state.files.filter(f=>{
+    const cat = getFileCategory(f.type);
+    return cat==='video' && f.previewUrl && f.duration && f.duration > 0 && f.duration < 60;
+  });
+  shorts.sort((a,b)=>b.uploadedAt - a.uploadedAt);
+  if(shorts.length === 0){
+    container.innerHTML = `<div class="short-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><h3>Belum ada Shorts</h3><p>Unggah video pendek (durasi &lt; 60 detik) di tab Upload &amp; Proses, maka akan otomatis tampil di sini sebagai Shorts.</p></div>`;
+    return;
+  }
+  container.innerHTML = shorts.map(f=>{
+    const liked = f.likes && f.likes.includes(state.uploader.name);
+    return `<div class="short-item" data-id="${f.id}">
+      <video class="short-video" src="${f.previewUrl}" loop playsinline preload="metadata" onclick="this.paused?this.play():this.pause()"></video>
+      <div class="short-overlay"></div>
+      <div class="short-info">
+        <div class="short-user">
+          <div class="short-avatar" style="background:${f.uploaderColor||'linear-gradient(135deg,#94a3b8,#64748b)'}">${f.uploaderInitials||'?'}</div>
+          <span class="short-username">${f.uploader||'Tamu'}</span>
+        </div>
+        <div class="short-caption">${escapeHtml(f.caption || f.name)}</div>
+        <div class="short-meta">${formatDuration((f.duration||0)*1000)} • ${formatRelative(f.uploadedAt)} • ${f.views||0} tayangan</div>
+      </div>
+      <div class="short-actions">
+        <button class="short-action ${liked?'liked':''}" onclick="toggleLike('${f.id}')">
+          <div class="short-action-icon">${ICONS.heart}</div>
+          <span class="short-action-count">${f.likes?f.likes.length:0}</span>
+        </button>
+        <button class="short-action" onclick="toggleCommentsShort('${f.id}')">
+          <div class="short-action-icon">${ICONS.message}</div>
+          <span class="short-action-count">${f.comments?f.comments.length:0}</span>
+        </button>
+        <button class="short-action" onclick="sharePost('${f.id}')">
+          <div class="short-action-icon">${ICONS.share}</div>
+          <span class="short-action-count">Bagikan</span>
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+  // Auto-play video yang terlihat menggunakan IntersectionObserver
+  setupShortsObserver();
+}
+
+function setupShortsObserver(){
+  const container = document.getElementById('shorts-container');
+  if(!container) return;
+  const videos = container.querySelectorAll('.short-video');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      const v = entry.target;
+      if(entry.isIntersecting && entry.intersectionRatio > 0.6){
+        v.play().catch(()=>{});
+        // Increment views sekali per tampil
+        const item = v.closest('.short-item');
+        const id = item && item.dataset.id;
+        if(id && !item.dataset.viewed){
+          item.dataset.viewed = '1';
+          const f = state.files.find(x=>x.id===id);
+          if(f){
+            f.views = (f.views||0)+1;
+            dbUpdateFile(id, { views: f.views });
+          }
+        }
+      } else {
+        v.pause();
+      }
+    });
+  }, { root: container, threshold: [0.6] });
+  videos.forEach(v=>observer.observe(v));
+}
+
+window.toggleLike = function(id){
+  const f = state.files.find(x=>x.id===id);
+  if(!f) return;
+  if(!state.uploader.name){ toast('Login dulu', 'Masukkan nama Anda untuk menyukai.', 'error'); return; }
+  f.likes = f.likes || [];
+  const idx = f.likes.indexOf(state.uploader.name);
+  if(idx >= 0){ f.likes.splice(idx, 1); toast('Batal suka', '', 'info'); }
+  else { f.likes.push(state.uploader.name); toast('Disukai', 'Anda menyukai postingan ini.', 'success'); }
+  dbUpdateFile(id, { likes: f.likes });
+  renderBeranda();
+  renderShorts();
+};
+
+window.toggleComments = function(id){
+  const el = document.getElementById('comments-'+id);
+  if(el) el.classList.toggle('open');
+};
+
+window.toggleCommentsShort = function(id){
+  // Untuk shorts: scroll ke tab beranda dan buka comments — atau tampilkan modal sederhana
+  toast('Komentar', 'Buka tab Beranda untuk menulis komentar pada short ini.', 'info');
+};
+
+window.addComment = function(id){
+  const input = document.getElementById('comment-input-'+id);
+  if(!input) return;
+  const text = input.value.trim();
+  if(!text){ toast('Komentar kosong', 'Tulis komentar terlebih dahulu.', 'error'); return; }
+  if(!state.uploader.name){ toast('Login dulu', 'Masukkan nama Anda untuk berkomentar.', 'error'); return; }
+  const f = state.files.find(x=>x.id===id);
+  if(!f) return;
+  f.comments = f.comments || [];
+  f.comments.push({
+    user: state.uploader.name,
+    initials: state.uploader.initials,
+    color: state.uploader.avatarColor,
+    text,
+    timestamp: Date.now(),
+  });
+  dbUpdateFile(id, { comments: f.comments });
+  input.value = '';
+  renderBeranda();
+  // Buka kembali comments section untuk item ini
+  setTimeout(()=>{ const el = document.getElementById('comments-'+id); if(el) el.classList.add('open'); }, 50);
+  toast('Komentar ditambahkan', 'Komentar Anda telah dipublikasikan.', 'success');
+};
+
+window.sharePost = function(id){
+  const f = state.files.find(x=>x.id===id);
+  if(!f) return;
+  const url = window.location.origin + '/p/' + id;
+  if(navigator.share){
+    navigator.share({ title: f.name, text: f.caption||f.name, url }).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(url).then(()=>{
+      toast('Tautan disalin', 'Tautan postingan disalin ke papan klip.', 'success');
+    }).catch(()=>{
+      toast('Bagikan', 'Tautan: '+url, 'info');
+    });
+  }
+};
+
+// Filter buttons
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  state.berandaFilter = btn.dataset.filter;
+  renderBeranda();
+});
+
 /* =================== INIT =================== */
 async function init(){
   loadUploader();
@@ -2199,12 +2656,15 @@ async function init(){
   renderSparkline();
   renderGallery();
   renderHistory();
+  renderBeranda();
+  renderShorts();
 }
 init();
 
 /* Refresh relative timestamps every minute */
 setInterval(()=>{
   renderHistory();
+  renderBeranda();
   if(state.files.length > 0) renderFiles();
 }, 60000);
 </script>
