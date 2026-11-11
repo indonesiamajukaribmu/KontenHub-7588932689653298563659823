@@ -407,19 +407,113 @@
   .history-item{
     display:flex; align-items:center; gap:10px; padding:8px 10px;
     border-radius:8px; background:var(--slate-50); margin-bottom:6px;
-    border:1px solid var(--slate-200);
+    border:1px solid var(--slate-200); cursor:pointer; transition:all .2s;
   }
+  .history-item:hover{border-color:var(--violet-300); background:rgba(139,92,246,.04)}
   .history-item:last-child{margin-bottom:0}
   .history-thumb{
-    width:28px;height:28px;border-radius:6px;flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;color:#fff;
+    width:32px;height:32px;border-radius:6px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;overflow:hidden;
   }
-  .history-thumb svg{width:13px;height:13px}
+  .history-thumb img,.history-thumb video{width:100%;height:100%;object-fit:cover}
+  .history-thumb svg{width:14px;height:14px}
   .history-info{flex:1; min-width:0; font-size:11px}
   .history-name{font-weight:500; color:var(--slate-900); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
   .history-meta{color:var(--slate-500); margin-top:1px}
   .history-meta strong{color:var(--violet-600); font-weight:600}
   .history-empty{text-align:center; padding:20px; color:var(--slate-400); font-size:12px}
+  /* Detail button on file item */
+  .btn-detail{
+    padding:6px 10px; font-size:11px; border:1px solid var(--violet-300);
+    background:rgba(139,92,246,.06); color:var(--violet-700); border-radius:7px;
+    cursor:pointer; display:inline-flex; align-items:center; gap:5px; font-family:inherit;
+  }
+  .btn-detail:hover{background:rgba(139,92,246,.12)}
+  .btn-detail svg{width:13px;height:13px}
+  /* Galeri grid */
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px;
+  }
+  .gallery-card{
+    border:1px solid var(--slate-200); border-radius:10px; overflow:hidden;
+    background:#fff; cursor:pointer; transition:all .2s; display:flex; flex-direction:column;
+  }
+  .gallery-card:hover{border-color:var(--violet-400); box-shadow:var(--shadow-md); transform:translateY(-2px)}
+  .gallery-thumb{
+    aspect-ratio:1; background:linear-gradient(135deg,var(--slate-100),var(--slate-200));
+    display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;
+  }
+  .gallery-thumb img,.gallery-thumb video{width:100%;height:100%;object-fit:cover}
+  .gallery-thumb .gallery-icon{color:#fff; width:32px; height:32px}
+  .gallery-thumb .gallery-icon svg{width:32px;height:32px}
+  .gallery-type-badge{
+    position:absolute; top:6px; left:6px;
+    background:rgba(0,0,0,.65); color:#fff; padding:2px 7px; border-radius:5px;
+    font-size:9px; font-weight:600; text-transform:uppercase; backdrop-filter:blur(4px);
+  }
+  .gallery-info{padding:8px 10px; flex:1; display:flex; flex-direction:column; gap:2px}
+  .gallery-name{font-size:11px; font-weight:500; color:var(--slate-900); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .gallery-meta{font-size:10px; color:var(--slate-500)}
+  .gallery-uploader{font-size:9px; color:var(--violet-600); margin-top:2px; display:flex; align-items:center; gap:3px}
+  .gallery-uploader .mini-avatar{width:12px;height:12px;border-radius:50%}
+  /* Modal */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(15,23,42,.7); backdrop-filter:blur(4px);
+    z-index:90; display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-overlay.open{display:flex; animation:fadeIn .2s}
+  .modal{
+    background:#fff; border-radius:14px; max-width:760px; width:100%; max-height:90vh;
+    overflow:hidden; display:flex; flex-direction:column; box-shadow:0 25px 60px rgba(0,0,0,.3);
+    animation:slideInModal .25s ease;
+  }
+  @keyframes slideInModal{from{transform:translateY(20px) scale(.98); opacity:0} to{transform:translateY(0) scale(1); opacity:1}}
+  .modal-header{
+    padding:14px 18px; border-bottom:1px solid var(--slate-200);
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .modal-title{font-size:15px; font-weight:600; color:var(--slate-900); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .modal-close{
+    width:30px; height:30px; border-radius:7px; border:none; background:var(--slate-100);
+    color:var(--slate-600); cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .modal-close:hover{background:var(--slate-200); color:var(--slate-900)}
+  .modal-close svg{width:16px;height:16px}
+  .modal-body{padding:18px; overflow-y:auto; flex:1}
+  .modal-section{margin-bottom:18px}
+  .modal-section:last-child{margin-bottom:0}
+  .modal-section-title{font-size:12px; font-weight:600; color:var(--slate-700); margin-bottom:8px; text-transform:uppercase; letter-spacing:.5px}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:8px}
+  .meta-item{
+    padding:8px 10px; background:var(--slate-50); border-radius:7px; border:1px solid var(--slate-200);
+  }
+  .meta-label{font-size:10px; color:var(--slate-500); text-transform:uppercase; letter-spacing:.4px}
+  .meta-value{font-size:13px; font-weight:600; color:var(--slate-900); margin-top:2px; word-break:break-all}
+  .preview-large{
+    width:100%; max-height:400px; object-fit:contain; border-radius:10px;
+    background:var(--slate-100); display:block;
+  }
+  .preview-video{width:100%; max-height:400px; border-radius:10px; background:#000; display:block}
+  .preview-audio{width:100%; margin-top:8px}
+  .text-preview{
+    padding:12px; background:var(--slate-50); border:1px solid var(--slate-200);
+    border-radius:8px; font-family:'Courier New',monospace; font-size:12px; color:var(--slate-700);
+    max-height:280px; overflow-y:auto; white-space:pre-wrap; word-break:break-word;
+  }
+  .archive-list{
+    max-height:280px; overflow-y:auto; border:1px solid var(--slate-200); border-radius:8px;
+  }
+  .archive-item{
+    display:flex; align-items:center; gap:8px; padding:7px 10px; border-bottom:1px solid var(--slate-100);
+    font-size:12px; color:var(--slate-700);
+  }
+  .archive-item:last-child{border-bottom:none}
+  .archive-item:hover{background:var(--slate-50)}
+  .archive-item svg{width:13px;height:13px; color:var(--slate-400); flex-shrink:0}
+  .archive-item-name{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .archive-item-size{font-size:10px; color:var(--slate-400); flex-shrink:0}
+  .archive-loading{padding:20px; text-align:center; color:var(--slate-500); font-size:12px}
+  .archive-loading .spin{display:inline-block; animation:spin 1s linear infinite; margin-right:6px}
   /* Footer */
   footer.app-footer{
     border-top:1px solid var(--slate-200); background:rgba(255,255,255,.6);
@@ -597,16 +691,38 @@
             <div id="upload-history-list"></div>
           </div>
         </div>
+
+        <!-- Galeri Unggahan -->
+        <div class="card" style="margin-top:16px">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Galeri Unggahan (Sesi Ini)
+              </div>
+              <div class="card-desc">Klik kartu untuk melihat detail lengkap file: preview, metadata, isi arsip, cuplikan dokumen.</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <div id="gallery-grid" class="gallery-grid"></div>
+          </div>
+        </div>
       </section>
 
       <!-- ====================== TAB 2: BAGIKAN ====================== -->
       <section class="tab-panel" id="panel-share" role="tabpanel">
-        <div style="background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(217,70,239,.05),transparent); padding:16px; border-radius:12px; border:1px solid rgba(139,92,246,.2); margin-bottom:16px; display:flex; gap:10px; align-items:flex-start">
+        <div style="background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(217,70,239,.05),transparent); padding:16px; border-radius:12px; border:1px solid rgba(139,92,246,.2); margin-bottom:12px; display:flex; gap:10px; align-items:flex-start">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px; color:var(--violet-600); flex-shrink:0; margin-top:2px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
           <div>
             <h2 style="font-size:17px; font-weight:600; margin-bottom:4px">Bagikan Konten Anda</h2>
-            <p style="font-size:13px; color:var(--slate-600)">Pilih konten yang sudah diproses, sesuaikan pesan, lalu sebar ke berbagai platform populer.</p>
+            <p style="font-size:13px; color:var(--slate-600)">Pilih konten yang sudah diunggah, sesuaikan pesan, lalu sebar ke berbagai platform populer.</p>
           </div>
+        </div>
+
+        <!-- Info: file dari semua pengunggah -->
+        <div class="privacy-notice" style="background:rgba(139,92,246,.06); border-color:rgba(139,92,246,.22); color:#4c1d95">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--violet-600)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div><strong>File dari semua pengunggah</strong> di browser ini terlihat di daftar konten. Setiap item menampilkan nama pengunggah &amp; status. File tetap tersimpan di IndexedDB browser walau Anda ganti nama akun.</div>
         </div>
 
         <div class="grid-2">
@@ -1002,6 +1118,22 @@
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toast-container"></div>
 
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detail-modal" onclick="if(event.target===this)closeDetailModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Detail File</div>
+      <button class="modal-close" onclick="closeDetailModal()" aria-label="Tutup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- JSZip for archive inspection -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
 <script>
 /* =================== STATE =================== */
 const state = {
@@ -1132,7 +1264,17 @@ function renderHistory(){
   list.innerHTML = state.history.map(h=>{
     const grad = categoryGradientMap[h.category] || 'linear-gradient(135deg,#64748b,#475569)';
     const icon = categoryIconMap[h.category] || ICONS.file;
-    return '<div class="history-item"><div class="history-thumb" style="background:'+grad+'">'+icon+'</div><div class="history-info"><div class="history-name" title="'+h.name+'">'+h.name+'</div><div class="history-meta">Diunggah oleh <strong>'+h.uploader+'</strong> • '+formatRelative(h.timestamp)+'</div></div><div style="font-size:10px; color:var(--slate-400); white-space:nowrap">'+formatBytes(h.size)+'</div></div>';
+    // Find live file in state.files for current-session preview
+    const liveFile = state.files.find(f=>f.id === h.id);
+    let thumbHtml = '';
+    if(liveFile && liveFile.previewUrl && h.category==='image'){
+      thumbHtml = `<img src="${liveFile.previewUrl}" alt="${h.name}" />`;
+    } else if(liveFile && liveFile.previewUrl && h.category==='video'){
+      thumbHtml = `<video src="${liveFile.previewUrl}" muted></video>`;
+    } else {
+      thumbHtml = icon;
+    }
+    return '<div class="history-item" onclick="openFileDetail(\''+h.id+'\')"><div class="history-thumb" style="background:'+grad+'">'+thumbHtml+'</div><div class="history-info"><div class="history-name" title="'+h.name+'">'+h.name+'</div><div class="history-meta">Diunggah oleh <strong>'+h.uploader+'</strong> • '+formatRelative(h.timestamp)+'</div></div><div style="font-size:10px; color:var(--slate-400); white-space:nowrap">'+formatBytes(h.size)+'</div></div>';
   }).join('');
 }
 function clearHistory(){
@@ -1141,6 +1283,167 @@ function clearHistory(){
   saveHistory();
   renderHistory();
   toast('Riwayat dihapus', 'Semua riwayat unggahan telah dibersihkan.', 'info');
+}
+
+/* === IndexedDB: Persistensi file antar-sesi & antar-akun === */
+const DB_NAME = 'kontenhub_db';
+const DB_VERSION = 1;
+const STORE_FILES = 'files';
+
+function openDB(){
+  return new Promise((resolve, reject)=>{
+    if(!('indexedDB' in window)){ reject(new Error('IndexedDB tidak didukung')); return; }
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = e=>{
+      const db = e.target.result;
+      if(!db.objectStoreNames.contains(STORE_FILES)){
+        db.createObjectStore(STORE_FILES, { keyPath:'id' });
+      }
+    };
+    req.onsuccess = ()=>resolve(req.result);
+    req.onerror = ()=>reject(req.error);
+  });
+}
+
+async function dbAddFile(file){
+  try{
+    const db = await openDB();
+    return new Promise((resolve, reject)=>{
+      const tx = db.transaction(STORE_FILES, 'readwrite');
+      const store = tx.objectStore(STORE_FILES);
+      // Simpan blob (rawFile) + metadata
+      const record = {
+        id: file.id,
+        blob: file.rawFile,
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        status: file.status,
+        progress: file.progress,
+        processType: file.processType,
+        processProgress: file.processProgress,
+        result: file.result,
+        uploadedAt: file.uploadedAt,
+        uploader: file.uploader,
+        uploaderInitials: file.uploaderInitials,
+        uploaderColor: file.uploaderColor,
+      };
+      const r = store.put(record);
+      r.onsuccess = ()=>resolve();
+      r.onerror = ()=>reject(r.error);
+    });
+  }catch(err){ console.warn('dbAddFile gagal:', err); }
+}
+
+async function dbUpdateFile(id, updates){
+  try{
+    const db = await openDB();
+    return new Promise((resolve, reject)=>{
+      const tx = db.transaction(STORE_FILES, 'readwrite');
+      const store = tx.objectStore(STORE_FILES);
+      const getReq = store.get(id);
+      getReq.onsuccess = ()=>{
+        const rec = getReq.result;
+        if(!rec) return resolve();
+        Object.assign(rec, updates);
+        const r = store.put(rec);
+        r.onsuccess = ()=>resolve();
+        r.onerror = ()=>reject(r.error);
+      };
+      getReq.onerror = ()=>reject(getReq.error);
+    });
+  }catch(err){ console.warn('dbUpdateFile gagal:', err); }
+}
+
+async function dbDeleteFile(id){
+  try{
+    const db = await openDB();
+    return new Promise((resolve, reject)=>{
+      const tx = db.transaction(STORE_FILES, 'readwrite');
+      const store = tx.objectStore(STORE_FILES);
+      const r = store.delete(id);
+      r.onsuccess = ()=>resolve();
+      r.onerror = ()=>reject(r.error);
+    });
+  }catch(err){ console.warn('dbDeleteFile gagal:', err); }
+}
+
+async function dbClearAll(){
+  try{
+    const db = await openDB();
+    return new Promise((resolve, reject)=>{
+      const tx = db.transaction(STORE_FILES, 'readwrite');
+      const store = tx.objectStore(STORE_FILES);
+      const r = store.clear();
+      r.onsuccess = ()=>resolve();
+      r.onerror = ()=>reject(r.error);
+    });
+  }catch(err){ console.warn('dbClearAll gagal:', err); }
+}
+
+async function dbGetAllFiles(){
+  try{
+    const db = await openDB();
+    return new Promise((resolve, reject)=>{
+      const tx = db.transaction(STORE_FILES, 'readonly');
+      const store = tx.objectStore(STORE_FILES);
+      const r = store.getAll();
+      r.onsuccess = ()=>resolve(r.result || []);
+      r.onerror = ()=>reject(r.error);
+    });
+  }catch(err){ console.warn('dbGetAllFiles gagal:', err); return []; }
+}
+
+/* Load file dari IndexedDB saat init — agar file tetap ada walau ganti akun/reload */
+async function loadFilesFromDB(){
+  const records = await dbGetAllFiles();
+  if(records.length === 0) return;
+  records.forEach(rec=>{
+    // Reconstruct File object from blob
+    let rawFile = rec.blob;
+    if(rawFile && !(rawFile instanceof File)){
+      // Jika blob tidak bertipe File, buat File baru
+      try{ rawFile = new File([rawFile], rec.name, { type: rec.type }); }catch{ rawFile = null; }
+    }
+    // Regenerate previewUrl dari blob
+    let previewUrl = null;
+    if(rawFile && (rec.type.startsWith('image/') || rec.type.startsWith('video/'))){
+      try{ previewUrl = URL.createObjectURL(rawFile); }catch{}
+    }
+    state.files.push({
+      id: rec.id,
+      name: rec.name,
+      size: rec.size,
+      type: rec.type,
+      status: rec.status || 'queued',
+      progress: rec.progress || 100,
+      processType: rec.processType || null,
+      processProgress: rec.processProgress || 0,
+      result: rec.result || null,
+      previewUrl,
+      uploadedAt: rec.uploadedAt || Date.now(),
+      uploader: rec.uploader || 'Tamu',
+      uploaderInitials: rec.uploaderInitials || '?',
+      uploaderColor: rec.uploaderColor || 'linear-gradient(135deg,#94a3b8,#64748b)',
+      rawFile,
+    });
+  });
+  // Sinkronkan history: tambahkan record yang belum ada
+  records.forEach(rec=>{
+    if(!state.history.find(h=>h.id===rec.id)){
+      state.history.unshift({
+        id: rec.id, name: rec.name, size: rec.size, type: rec.type,
+        uploader: rec.uploader || 'Tamu',
+        initials: rec.uploaderInitials || '?',
+        avatarColor: rec.uploaderColor,
+        timestamp: rec.uploadedAt || Date.now(),
+        category: getFileCategory(rec.type),
+        status: rec.status || 'queued',
+      });
+    }
+  });
+  if(state.history.length > 50) state.history = state.history.slice(0, 50);
+  saveHistory();
 }
 
 document.getElementById('save-uploader-btn').addEventListener('click', saveUploader);
@@ -1172,6 +1475,8 @@ const ICONS = {
   telegram:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.163-.17 2.987-2.74 3.044-2.97.008-.033.014-.154-.061-.218s-.186-.041-.266-.024c-.113.026-1.91 1.213-5.385 3.555-.51.35-.972.521-1.388.506-.457-.016-1.337-.258-1.99-.471-.802-.26-1.437-.4-1.381-.848.029-.232.318-.47.866-.71 3.384-1.473 5.635-2.445 6.753-2.916 3.215-1.338 3.887-1.571 4.327-1.579z"/></svg>',
   mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
   eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  maximize:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>',
   trending:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
   users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
   share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
@@ -1245,18 +1550,23 @@ function addFiles(fileList){
     const id = uid();
     const previewUrl = (file.type.startsWith('image/')||file.type.startsWith('video/')) ? URL.createObjectURL(file) : null;
     const uploadedAt = Date.now();
-    state.files.push({
+    const fileObj = {
       id, name:file.name, size:file.size, type:file.type, status:'uploading', progress:0,
       processType:null, processProgress:0, result:null, previewUrl,
       uploadedAt,
       uploader: state.uploader.name,
       uploaderInitials: state.uploader.initials,
       uploaderColor: state.uploader.avatarColor,
-    });
-    addToHistory(state.files[state.files.length-1]);
+      rawFile: file,
+    };
+    state.files.push(fileObj);
+    addToHistory(fileObj);
+    dbAddFile(fileObj);
     simulateUpload(id);
   });
   renderFiles();
+  renderGallery();
+  renderProcessedFiles();
   toast('File ditambahkan', Array.from(fileList).length+' file oleh '+state.uploader.name+' ditambahkan ke antrian.', 'success');
 }
 
@@ -1268,7 +1578,9 @@ function simulateUpload(id){
     if(file.progress >= 100){
       file.status = 'queued';
       file.progress = 100;
+      dbUpdateFile(id, { status:'queued', progress:100 });
       renderFiles();
+      renderProcessedFiles();
       return;
     }
     renderFiles();
@@ -1281,17 +1593,27 @@ function removeFile(id){
   const f = state.files.find(x=>x.id===id);
   if(f && f.previewUrl) URL.revokeObjectURL(f.previewUrl);
   state.files = state.files.filter(f=>f.id!==id);
+  state.history = state.history.filter(h=>h.id!==id);
+  saveHistory();
+  dbDeleteFile(id);
   renderFiles();
   renderProcessedFiles();
-  toast('File dihapus', 'File telah dihapus dari daftar.', 'info');
+  renderGallery();
+  renderHistory();
+  toast('File dihapus', 'File telah dihapus dari daftar dan database.', 'info');
 }
 
 function clearAll(){
   state.files.forEach(f=>{ if(f.previewUrl) URL.revokeObjectURL(f.previewUrl); });
   state.files = [];
+  state.history = [];
+  saveHistory();
+  dbClearAll();
   renderFiles();
   renderProcessedFiles();
-  toast('Daftar dibersihkan', 'Semua file telah dihapus.', 'info');
+  renderGallery();
+  renderHistory();
+  toast('Daftar dibersihkan', 'Semua file telah dihapus dari memori & database.', 'info');
 }
 
 document.getElementById('clear-all-btn').addEventListener('click', clearAll);
@@ -1302,6 +1624,7 @@ function processFile(id, type){
   file.status = 'processing';
   file.processType = type;
   file.processProgress = 0;
+  dbUpdateFile(id, { status:'processing', processType:type, processProgress:0 });
   renderFiles();
   const tick = ()=>{
     file.processProgress = Math.min(100, file.processProgress + Math.random()*15 + 8);
@@ -1316,7 +1639,9 @@ function processFile(id, type){
         durationMs: Math.random()*2000+500,
       };
       file.status = 'completed';
+      dbUpdateFile(id, { status:'completed', result:file.result });
       renderFiles();
+      renderGallery();
       renderProcessedFiles();
       toast('Proses selesai', file.name+' — '+getProcessLabel(type)+' selesai'+(ratio>0?(' (-'+ratio.toFixed(1)+'%)'):'')+'.', 'success');
       return;
@@ -1382,7 +1707,8 @@ function renderFiles(){
     }
 
     let actions = '';
-    if(canProcess) actions = `<div class="dropdown" id="dd-${f.id}"><button class="btn btn-primary btn-sm" onclick="toggleDropdown('${f.id}')">${ICONS.wand} Proses</button><div class="dropdown-menu"><button class="dropdown-item" onclick="processFile('${f.id}','compress')">${ICONS.download}<span class="dropdown-item-label"><span>Kompresi</span><small>Kurangi ukuran file</small></span></button><button class="dropdown-item" onclick="processFile('${f.id}','convert')">${ICONS.repeat}<span class="dropdown-item-label"><span>Konversi</span><small>Ubah format</small></span></button><button class="dropdown-item" onclick="processFile('${f.id}','validate')">${ICONS.shield}<span class="dropdown-item-label"><span>Validasi</span><small>Periksa integritas</small></span></button></div></div>`;
+    actions += `<button class="btn-detail" onclick="openFileDetail('${f.id}')" title="Lihat detail & preview">${ICONS.eye} Detail</button>`;
+    if(canProcess) actions = `<div class="dropdown" id="dd-${f.id}"><button class="btn btn-primary btn-sm" onclick="toggleDropdown('${f.id}')">${ICONS.wand} Proses</button><div class="dropdown-menu"><button class="dropdown-item" onclick="processFile('${f.id}','compress')">${ICONS.download}<span class="dropdown-item-label"><span>Kompresi</span><small>Kurangi ukuran file</small></span></button><button class="dropdown-item" onclick="processFile('${f.id}','convert')">${ICONS.repeat}<span class="dropdown-item-label"><span>Konversi</span><small>Ubah format</small></span></button><button class="dropdown-item" onclick="processFile('${f.id}','validate')">${ICONS.shield}<span class="dropdown-item-label"><span>Validasi</span><small>Periksa integritas</small></span></button></div></div>` + actions;
     if(isBusy) actions += `<button class="btn btn-ghost btn-sm" disabled>${ICONS.loader}</button>`;
     actions += `<button class="btn btn-ghost btn-icon" onclick="removeFile('${f.id}')" aria-label="Hapus ${f.name}">${ICONS.x}</button>`;
 
@@ -1409,6 +1735,142 @@ document.addEventListener('click', e=>{
 window.removeFile = removeFile;
 window.processFile = processFile;
 
+/* =================== GALERI & DETAIL FILE =================== */
+function renderGallery(){
+  const grid = document.getElementById('gallery-grid');
+  if(!grid) return;
+  if(state.files.length === 0){
+    grid.innerHTML = '<div class="history-empty" style="grid-column:1/-1">Belum ada file di sesi ini. Unggah file untuk melihatnya di galeri.</div>';
+    return;
+  }
+  grid.innerHTML = state.files.map(f=>{
+    const cat = getFileCategory(f.type);
+    const grad = categoryGradientMap[cat];
+    let thumb = '';
+    if(f.previewUrl && cat==='image') thumb = `<img src="${f.previewUrl}" alt="${f.name}" />`;
+    else if(f.previewUrl && cat==='video') thumb = `<video src="${f.previewUrl}" muted></video>`;
+    else thumb = `<div class="gallery-icon" style="background:${grad}; width:100%; height:100%; display:flex; align-items:center; justify-content:center">${categoryIconMap[cat]}</div>`;
+    return `<div class="gallery-card" onclick="openFileDetail('${f.id}')"><div class="gallery-thumb">${thumb}<span class="gallery-type-badge">${cat}</span></div><div class="gallery-info"><div class="gallery-name" title="${f.name}">${f.name}</div><div class="gallery-meta">${formatBytes(f.size)}</div><div class="gallery-uploader"><div class="mini-avatar" style="background:${f.uploaderColor||'linear-gradient(135deg,#94a3b8,#64748b)'}">${f.uploaderInitials||'?'}</div>${f.uploader||'Tamu'}</div></div></div>`;
+  }).join('');
+}
+
+window.openFileDetail = function(id){
+  const f = state.files.find(x=>x.id===id);
+  if(!f){ toast('File tidak ditemukan', 'File mungkin sudah dihapus.', 'error'); return; }
+  const cat = getFileCategory(f.type);
+  document.getElementById('modal-title').textContent = f.name;
+  const body = document.getElementById('modal-body');
+  // Common metadata
+  const metaHtml = `
+    <div class="modal-section">
+      <div class="modal-section-title">Informasi File</div>
+      <div class="meta-grid">
+        <div class="meta-item"><div class="meta-label">Nama</div><div class="meta-value" style="font-size:11px; word-break:break-all">${f.name}</div></div>
+        <div class="meta-item"><div class="meta-label">Tipe MIME</div><div class="meta-value" style="font-size:11px">${f.type||'tidak diketahui'}</div></div>
+        <div class="meta-item"><div class="meta-label">Ukuran</div><div class="meta-value">${formatBytes(f.size)}</div></div>
+        <div class="meta-item"><div class="meta-label">Kategori</div><div class="meta-value" style="text-transform:capitalize">${cat}</div></div>
+        <div class="meta-item"><div class="meta-label">Status</div><div class="meta-value" style="text-transform:capitalize">${f.status}</div></div>
+        <div class="meta-item"><div class="meta-label">Diunggah</div><div class="meta-value" style="font-size:11px">${formatTime(f.uploadedAt)}</div></div>
+        <div class="meta-item"><div class="meta-label">Pengunggah</div><div class="meta-value" style="display:flex; align-items:center; gap:6px"><div class="mini-avatar" style="width:18px; height:18px; background:${f.uploaderColor||'linear-gradient(135deg,#94a3b8,#64748b)'}">${f.uploaderInitials||'?'}</div>${f.uploader||'Tamu'}</div></div>
+        <div class="meta-item"><div class="meta-label">Ekstensi</div><div class="meta-value" style="font-size:11px">.${(f.name.split('.').pop()||'').toLowerCase()}</div></div>
+      </div>
+    </div>
+  `;
+  // Type-specific preview
+  let previewHtml = '<div class="modal-section"><div class="modal-section-title">Preview Konten</div><div id="modal-preview"><div class="archive-loading">Memuat preview...</div></div></div>';
+  body.innerHTML = metaHtml + previewHtml;
+  document.getElementById('detail-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Render preview async
+  renderFilePreview(f, cat);
+};
+
+window.closeDetailModal = function(){
+  document.getElementById('detail-modal').classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDetailModal(); });
+
+async function renderFilePreview(f, cat){
+  const el = document.getElementById('modal-preview');
+  if(!el) return;
+  try{
+    if(cat === 'image'){
+      // Get dimensions
+      const img = new Image();
+      img.onload = ()=>{
+        el.innerHTML = `<img src="${f.previewUrl}" alt="${f.name}" class="preview-large" /><div class="meta-grid" style="margin-top:10px"><div class="meta-item"><div class="meta-label">Dimensi</div><div class="meta-value">${img.naturalWidth} × ${img.naturalHeight} px</div></div><div class="meta-item"><div class="meta-label">Rasio</div><div class="meta-value">${(img.naturalWidth/img.naturalHeight).toFixed(2)}:1</div></div><div class="meta-item"><div class="meta-label">Total Piksel</div><div class="meta-value">${(img.naturalWidth*img.naturalHeight).toLocaleString('id-ID')}</div></div></div>`;
+      };
+      img.onerror = ()=>{ el.innerHTML = '<div class="archive-loading">Gagal memuat gambar.</div>'; };
+      img.src = f.previewUrl;
+    }
+    else if(cat === 'video'){
+      const video = document.createElement('video');
+      video.onloadedmetadata = ()=>{
+        const duration = formatDuration(video.duration*1000);
+        el.innerHTML = `<video src="${f.previewUrl}" controls playsinline class="preview-video"></video><div class="meta-grid" style="margin-top:10px"><div class="meta-item"><div class="meta-label">Durasi</div><div class="meta-value">${duration}</div></div><div class="meta-item"><div class="meta-label">Resolusi</div><div class="meta-value">${video.videoWidth} × ${video.videoHeight} px</div></div><div class="meta-item"><div class="meta-label">Rasio</div><div class="meta-value">${video.videoWidth&&video.videoHeight?(video.videoWidth/video.videoHeight).toFixed(2):'-'}:1</div></div></div>`;
+      };
+      video.onerror = ()=>{ el.innerHTML = '<div class="archive-loading">Gagal memuat video.</div>'; };
+      video.src = f.previewUrl;
+    }
+    else if(cat === 'audio'){
+      const audio = document.createElement('audio');
+      audio.onloadedmetadata = ()=>{
+        el.innerHTML = `<audio src="${f.previewUrl}" controls class="preview-audio"></audio><div class="meta-grid" style="margin-top:10px"><div class="meta-item"><div class="meta-label">Durasi</div><div class="meta-value">${formatDuration(audio.duration*1000)}</div></div><div class="meta-item"><div class="meta-label">Format</div><div class="meta-value" style="font-size:11px">${f.type}</div></div></div>`;
+      };
+      audio.onerror = ()=>{ el.innerHTML = '<div class="archive-loading">Gagal memuat audio.</div>'; };
+      audio.src = f.previewUrl;
+    }
+    else if(cat === 'archive'){
+      if(typeof JSZip === 'undefined'){ el.innerHTML = '<div class="archive-loading">JSZip belum dimuat. Reload halaman.</div>'; return; }
+      el.innerHTML = '<div class="archive-list"><div class="archive-loading"><span class="spin">'+ICONS.loader+'</span>Membaca isi arsip...</div></div>';
+      try{
+        const zip = await JSZip.loadAsync(f.rawFile || f);
+        const entries = Object.values(zip.files).filter(e=>!e.dir);
+        const totalUncompressed = entries.reduce((s,e)=>s+(e._data?e._data.uncompressedSize:0),0);
+        const listEl = el.querySelector('.archive-list');
+        if(entries.length === 0){ listEl.innerHTML = '<div class="archive-loading">Arsip kosong.</div>'; return; }
+        listEl.innerHTML = entries.slice(0,200).map(e=>{
+          const ext = e.name.split('.').pop().toLowerCase();
+          const icon = ICONS.file;
+          const size = e._data ? formatBytes(e._data.uncompressedSize) : '-';
+          return `<div class="archive-item">${icon}<span class="archive-item-name" title="${e.name}">${e.name}</span><span class="archive-item-size">${size}</span></div>`;
+        }).join('') + (entries.length>200?`<div class="archive-item" style="justify-content:center; color:var(--slate-500)">... dan ${entries.length-200} file lainnya</div>`:'');
+        el.innerHTML += `<div class="meta-grid" style="margin-top:10px"><div class="meta-item"><div class="meta-label">Total File</div><div class="meta-value">${entries.length}</div></div><div class="meta-item"><div class="meta-label">Total Uncompressed</div><div class="meta-value">${formatBytes(totalUncompressed)}</div></div><div class="meta-item"><div class="meta-label">Rasio Kompresi</div><div class="meta-value">${totalUncompressed>0?((1-f.size/totalUncompressed)*100).toFixed(1)+'%':'-'}</div></div></div>`;
+      }catch(err){ el.innerHTML = '<div class="archive-loading">Gagal membaca arsip: '+err.message+'</div>'; }
+    }
+    else if(cat === 'document'){
+      // Text-based files: read content
+      const textExts = ['txt','md','csv','json','xml','html','htm','js','ts','css','py','java','c','cpp','log','ini','yml','yaml'];
+      const ext = (f.name.split('.').pop()||'').toLowerCase();
+      if(textExts.includes(ext) || f.type.startsWith('text/')){
+        el.innerHTML = '<div class="archive-list"><div class="archive-loading"><span class="spin">'+ICONS.loader+'</span>Membaca isi dokumen...</div></div>';
+        try{
+          const raw = f.rawFile || f;
+          const text = await raw.text();
+          const listEl = el.querySelector('.archive-list');
+          listEl.outerHTML = `<div class="text-preview" id="text-preview">${escapeHtml(text.slice(0,5000))}${text.length>5000?'\n\n... ('+(text.length-5000)+' karakter lagi)':''}</div>`;
+          el.innerHTML += `<div class="meta-grid" style="margin-top:10px"><div class="meta-item"><div class="meta-label">Total Karakter</div><div class="meta-value">${text.length.toLocaleString('id-ID')}</div></div><div class="meta-item"><div class="meta-label">Total Baris</div><div class="meta-value">${text.split('\n').length.toLocaleString('id-ID')}</div></div><div class="meta-item"><div class="meta-label">Total Kata</div><div class="meta-value">${text.split(/\s+/).filter(Boolean).length.toLocaleString('id-ID')}</div></div></div>`;
+        }catch(err){ el.innerHTML = '<div class="archive-loading">Gagal membaca dokumen: '+err.message+'</div>'; }
+      } else {
+        // Binary documents (PDF, DOCX, XLSX, PPTX)
+        el.innerHTML = `<div class="archive-loading" style="text-align:left; padding:14px">
+          <div style="margin-bottom:10px">${categoryIconMap[cat]}</div>
+          <p style="font-size:13px; color:var(--slate-700); margin-bottom:8px"><strong>Pratinjau tidak tersedia langsung.</strong></p>
+          <p style="font-size:11px; color:var(--slate-500); line-height:1.6">File dokumen biner seperti PDF, DOCX, XLSX, atau PPTX tidak dapat ditampilkan langsung di browser tanpa library khusus. Informasi metadata file tetap tersedia di atas.</p>
+          <p style="font-size:11px; color:var(--slate-500); line-height:1.6; margin-top:8px">Untuk melihat isi, unduh file dan buka dengan aplikasi yang sesuai (Adobe Reader, Microsoft Office, LibreOffice, dll).</p>
+        </div>`;
+      }
+    }
+    else {
+      el.innerHTML = `<div class="archive-loading">Tipe file ini tidak memiliki preview spesifik. Lihat metadata di atas.</div>`;
+    }
+  }catch(err){ el.innerHTML = '<div class="archive-loading">Error: '+err.message+'</div>'; }
+}
+
+function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
 /* =================== SHARE =================== */
 const platforms = [
   {key:'whatsapp', label:'WhatsApp', icon:ICONS.whatsapp, bg:'bg-wa', color:'c-wa', build:(u,t)=>`https://wa.me/?text=${encodeURIComponent(t+'\n\n'+u)}`},
@@ -1430,19 +1892,23 @@ function getShareText(){
 
 function renderProcessedFiles(){
   const list = document.getElementById('processed-files-list');
-  const processed = state.files.filter(f=>f.status==='completed');
-  if(processed.length === 0){
-    list.innerHTML = `<div style="border:1px dashed var(--slate-300); border-radius:8px; padding:24px; text-align:center"><div style="color:var(--slate-400); margin-bottom:6px">${ICONS.file}</div><p style="font-size:13px; color:var(--slate-600)">Belum ada konten yang siap dibagikan.</p><p style="font-size:11px; color:var(--slate-500); margin-top:4px">Buka tab <strong>Upload &amp; Proses</strong>, unggah file, lalu proses agar muncul di sini.</p></div>`;
+  // Tampilkan file berstatus queued + completed (bukan hanya completed)
+  const shareable = state.files.filter(f=>f.status==='completed' || f.status==='queued');
+  if(shareable.length === 0){
+    list.innerHTML = `<div style="border:1px dashed var(--slate-300); border-radius:8px; padding:24px; text-align:center"><div style="color:var(--slate-400); margin-bottom:6px">${ICONS.file}</div><p style="font-size:13px; color:var(--slate-600)">Belum ada konten yang siap dibagikan.</p><p style="font-size:11px; color:var(--slate-500); margin-top:4px">Buka tab <strong>Upload &amp; Proses</strong>, unggah file agar muncul di sini. File dari semua pengunggah di browser ini akan terlihat.</p></div>`;
     return;
   }
-  if(!state.selectedFileId || !processed.find(f=>f.id===state.selectedFileId)) state.selectedFileId = processed[0].id;
-  list.innerHTML = `<div style="display:flex; flex-direction:column; gap:8px; max-height:224px; overflow-y:auto">${processed.map(f=>{
+  if(!state.selectedFileId || !shareable.find(f=>f.id===state.selectedFileId)) state.selectedFileId = shareable[0].id;
+  list.innerHTML = `<div style="display:flex; flex-direction:column; gap:8px; max-height:280px; overflow-y:auto">${shareable.map(f=>{
     const cat = getFileCategory(f.type);
     const active = state.selectedFileId === f.id;
     let thumb = '';
     if(f.previewUrl && cat==='image') thumb = `<img src="${f.previewUrl}" alt="${f.name}" style="width:40px;height:40px;border-radius:6px;object-fit:cover;flex-shrink:0" />`;
-    else thumb = `<div style="width:40px;height:40px;border-radius:6px;background:linear-gradient(135deg,var(--violet-500),var(--fuchsia-500));display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0">${categoryIconMap[cat]||ICONS.file}</div>`;
-    return `<button type="button" onclick="selectFile('${f.id}')" style="display:flex; align-items:center; gap:10px; padding:8px; border-radius:8px; border:1px solid ${active?'var(--violet-400)':'var(--slate-200)'}; background:${active?'rgba(139,92,246,.06)':'transparent'}; text-align:left; cursor:pointer; width:100%; font-family:inherit; ${active?'box-shadow:0 0 0 1px var(--violet-300)':''}">${thumb}<div style="flex:1; min-width:0"><div style="font-size:13px; font-weight:500; color:var(--slate-900); overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${f.name}</div><div style="font-size:11px; color:var(--slate-500)">${f.result?formatBytes(f.result.processedSize):formatBytes(f.size)}${f.processType?' • '+f.processType:''}</div></div>${active?'<span style="color:var(--violet-600); flex-shrink:0">'+ICONS.check+'</span>':''}</button>`;
+    else if(f.previewUrl && cat==='video') thumb = `<video src="${f.previewUrl}" muted style="width:40px;height:40px;border-radius:6px;object-fit:cover;flex-shrink:0"></video>`;
+    else thumb = `<div style="width:40px;height:40px;border-radius:6px;background:${categoryGradientMap[cat]||'linear-gradient(135deg,var(--violet-500),var(--fuchsia-500))'};display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0">${categoryIconMap[cat]||ICONS.file}</div>`;
+    const statusLabel = f.status==='completed' ? '✓ Selesai' : 'Siap dibagikan';
+    const statusColor = f.status==='completed' ? 'var(--emerald-600)' : 'var(--slate-500)';
+    return `<button type="button" onclick="selectFile('${f.id}')" style="display:flex; align-items:center; gap:10px; padding:8px; border-radius:8px; border:1px solid ${active?'var(--violet-400)':'var(--slate-200)'}; background:${active?'rgba(139,92,246,.06)':'transparent'}; text-align:left; cursor:pointer; width:100%; font-family:inherit; ${active?'box-shadow:0 0 0 1px var(--violet-300)':''}">${thumb}<div style="flex:1; min-width:0"><div style="font-size:13px; font-weight:500; color:var(--slate-900); overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${f.name}</div><div style="font-size:11px; color:var(--slate-500); display:flex; align-items:center; gap:5px; margin-top:2px"><div class="mini-avatar" style="width:14px;height:14px;background:${f.uploaderColor||'linear-gradient(135deg,#94a3b8,#64748b)'};font-size:8px">${f.uploaderInitials||'?'}</div><span>${f.uploader||'Tamu'}</span><span style="color:var(--slate-400)">•</span><span style="color:${statusColor}">${statusLabel}</span></div></div>${active?'<span style="color:var(--violet-600); flex-shrink:0">'+ICONS.check+'</span>':''}</button>`;
   }).join('')}</div>`;
 }
 
@@ -1453,15 +1919,15 @@ window.selectFile = function(id){
 };
 
 function updatePreview(){
-  const processed = state.files.filter(f=>f.status==='completed');
-  const sel = processed.find(f=>f.id===state.selectedFileId);
+  const shareable = state.files.filter(f=>f.status==='completed' || f.status==='queued');
+  const sel = shareable.find(f=>f.id===state.selectedFileId);
   const media = document.getElementById('preview-media');
   if(sel && sel.previewUrl && getFileCategory(sel.type)==='image'){
     media.innerHTML = `<img src="${sel.previewUrl}" alt="${sel.name}" /><span class="preview-badge">${getFileCategory(sel.type)}</span>`;
   } else if(sel && sel.previewUrl && getFileCategory(sel.type)==='video'){
     media.innerHTML = `<video src="${sel.previewUrl}" controls playsinline></video><span class="preview-badge">${getFileCategory(sel.type)}</span>`;
   } else {
-    media.innerHTML = `<div class="placeholder">${ICONS.file}<span style="font-size:11px">Tidak ada pratinjau visual</span></div>${sel?`<span class="preview-badge">${getFileCategory(sel.type)}</span>`:''}`;
+    media.innerHTML = `<div class="placeholder">${ICONS.file}<span style="font-size:11px">${sel?'Tidak ada pratinjau visual':'Pilih konten di sebelah kiri'}</span></div>${sel?`<span class="preview-badge">${getFileCategory(sel.type)}</span>`:''}`;
   }
   document.getElementById('preview-title').textContent = document.getElementById('share-title').value;
   document.getElementById('preview-desc').textContent = document.getElementById('share-desc').value;
@@ -1719,15 +2185,22 @@ document.getElementById('live-category').addEventListener('change', e=>{
 });
 
 /* =================== INIT =================== */
-loadUploader();
-loadHistory();
-renderFiles();
-renderProcessedFiles();
-renderPlatforms();
-renderShareStats();
-updatePreview();
-drawQR();
-renderSparkline();
+async function init(){
+  loadUploader();
+  loadHistory();
+  // Load files dari IndexedDB (async) — agar file tetap ada walau ganti akun/reload
+  await loadFilesFromDB();
+  renderFiles();
+  renderProcessedFiles();
+  renderPlatforms();
+  renderShareStats();
+  updatePreview();
+  drawQR();
+  renderSparkline();
+  renderGallery();
+  renderHistory();
+}
+init();
 
 /* Refresh relative timestamps every minute */
 setInterval(()=>{
