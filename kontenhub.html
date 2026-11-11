@@ -656,6 +656,106 @@
   .short-empty h3{font-size:16px; color:var(--slate-300); margin-bottom:6px}
   .short-empty p{font-size:12px; color:var(--slate-500); max-width:320px; line-height:1.5}
 
+  /* === PAYMENT === */
+  .payment-saldo-card{
+    background:linear-gradient(135deg,#7c3aed 0%,#c026d3 50%,#db2777 100%);
+    border-radius:16px; padding:24px; color:#fff; position:relative; overflow:hidden;
+    box-shadow:0 12px 30px rgba(124,58,237,.3); margin-bottom:16px;
+  }
+  .payment-saldo-card::before{
+    content:''; position:absolute; top:-50%; right:-30%; width:300px; height:300px;
+    background:rgba(255,255,255,.1); border-radius:50%; pointer-events:none;
+  }
+  .saldo-label{font-size:12px; opacity:.85; text-transform:uppercase; letter-spacing:.8px; margin-bottom:6px}
+  .saldo-amount{font-size:32px; font-weight:700; margin-bottom:4px}
+  .saldo-sub{font-size:12px; opacity:.85}
+  .saldo-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:16px; position:relative}
+  .saldo-stat{background:rgba(255,255,255,.15); border-radius:8px; padding:10px; backdrop-filter:blur(6px)}
+  .saldo-stat-label{font-size:10px; opacity:.8; text-transform:uppercase}
+  .saldo-stat-value{font-size:15px; font-weight:600; margin-top:2px}
+  .payment-grid{display:grid; grid-template-columns:1fr; gap:16px}
+  @media(min-width:1024px){.payment-grid{grid-template-columns:3fr 2fr}}
+  .earning-item{
+    display:flex; align-items:center; gap:10px; padding:10px;
+    border:1px solid var(--slate-200); border-radius:10px; background:#fff; margin-bottom:8px;
+  }
+  .earning-thumb{width:36px;height:36px;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#fff}
+  .earning-thumb img,.earning-thumb video{width:100%;height:100%;object-fit:cover}
+  .earning-info{flex:1; min-width:0}
+  .earning-name{font-size:12px; font-weight:500; color:var(--slate-900); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .earning-breakdown{font-size:10px; color:var(--slate-500); margin-top:2px}
+  .earning-amount{font-size:13px; font-weight:700; color:var(--emerald-600); white-space:nowrap}
+  .withdraw-method-tabs{display:flex; gap:4px; background:var(--slate-100); padding:4px; border-radius:10px; margin-bottom:14px}
+  .withdraw-tab{
+    flex:1; padding:8px; border:none; background:transparent; border-radius:7px;
+    font-size:12px; font-weight:500; color:var(--slate-600); cursor:pointer; font-family:inherit;
+    display:flex; align-items:center; justify-content:center; gap:5px; transition:all .2s;
+  }
+  .withdraw-tab svg{width:14px;height:14px}
+  .withdraw-tab.active{background:#fff; color:var(--violet-700); box-shadow:var(--shadow-sm)}
+  .bank-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:12px}
+  .bank-option{
+    padding:10px; border:2px solid var(--slate-200); border-radius:10px; cursor:pointer;
+    text-align:center; transition:all .2s; background:#fff; font-family:inherit;
+  }
+  .bank-option:hover{border-color:var(--violet-300)}
+  .bank-option.selected{border-color:var(--violet-500); background:rgba(139,92,246,.05)}
+  .bank-logo{font-size:14px; font-weight:700; color:var(--slate-900); margin-bottom:2px}
+  .bank-name{font-size:10px; color:var(--slate-500)}
+  .retail-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px}
+  .retail-option{
+    padding:10px 6px; border:2px solid var(--slate-200); border-radius:10px; cursor:pointer;
+    text-align:center; transition:all .2s; background:#fff; font-family:inherit;
+  }
+  .retail-option:hover{border-color:var(--violet-300)}
+  .retail-option.selected{border-color:var(--violet-500); background:rgba(139,92,246,.05)}
+  .retail-logo{font-size:11px; font-weight:700; color:var(--slate-900); margin-bottom:2px}
+  .retail-name{font-size:9px; color:var(--slate-500)}
+  .wallet-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px}
+  .wallet-option{
+    padding:10px 6px; border:2px solid var(--slate-200); border-radius:10px; cursor:pointer;
+    text-align:center; transition:all .2s; background:#fff; font-family:inherit;
+  }
+  .wallet-option:hover{border-color:var(--violet-300)}
+  .wallet-option.selected{border-color:var(--violet-500); background:rgba(139,92,246,.05)}
+  .wallet-logo{font-size:12px; font-weight:700; margin-bottom:2px}
+  .wallet-name{font-size:9px; color:var(--slate-500)}
+  .withdraw-summary{
+    padding:12px; background:var(--slate-50); border-radius:10px; margin:12px 0;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .withdraw-summary-label{font-size:12px; color:var(--slate-600)}
+  .withdraw-summary-value{font-size:16px; font-weight:700; color:var(--violet-700)}
+  .withdraw-fee-info{font-size:11px; color:var(--slate-500); margin-top:6px; text-align:center}
+  .qris-display{
+    text-align:center; padding:20px; background:#fff; border-radius:12px;
+    border:1px solid var(--slate-200); margin:12px 0;
+  }
+  .qris-display canvas{display:block; margin:0 auto 10px}
+  .qris-label{font-size:11px; color:var(--slate-500); margin-bottom:4px}
+  .qris-amount{font-size:18px; font-weight:700; color:var(--slate-900)}
+  .qris-status{font-size:11px; color:var(--amber-500); margin-top:6px}
+  .tx-history-item{
+    display:flex; align-items:center; gap:10px; padding:10px;
+    border:1px solid var(--slate-200); border-radius:8px; margin-bottom:6px; background:#fff;
+  }
+  .tx-status-badge{
+    padding:3px 8px; border-radius:5px; font-size:10px; font-weight:600; text-transform:uppercase;
+  }
+  .tx-pending{background:rgba(245,158,11,.15); color:var(--amber-500)}
+  .tx-success{background:rgba(16,185,129,.15); color:var(--emerald-600)}
+  .tx-failed{background:rgba(244,63,94,.15); color:var(--rose-500)}
+  .tx-info{flex:1; min-width:0}
+  .tx-method{font-size:12px; font-weight:500; color:var(--slate-900)}
+  .tx-date{font-size:10px; color:var(--slate-500); margin-top:1px}
+  .tx-amount{font-size:13px; font-weight:700; color:var(--slate-900); white-space:nowrap}
+  .claim-code-box{
+    background:var(--violet-50); border:1px dashed var(--violet-400); border-radius:8px;
+    padding:10px; text-align:center; margin-top:8px;
+  }
+  .claim-code-label{font-size:10px; color:var(--slate-600); margin-bottom:4px}
+  .claim-code-value{font-size:16px; font-weight:700; color:var(--violet-700); letter-spacing:1px; font-family:monospace}
+
   /* Footer */
   footer.app-footer{
     border-top:1px solid var(--slate-200); background:rgba(255,255,255,.6);
@@ -730,6 +830,10 @@
         <button class="nav-tab" data-tab="live" role="tab">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
           Siaran Langsung
+        </button>
+        <button class="nav-tab" data-tab="payment" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Pembayaran
         </button>
       </nav>
     </div>
@@ -1075,6 +1179,229 @@
                 <div id="stat-bars"></div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== TAB PEMBAYARAN ====================== -->
+      <section class="tab-panel" id="panel-payment" role="tabpanel">
+        <!-- Saldo Card -->
+        <div class="payment-saldo-card">
+          <div class="saldo-label">Saldo Tersedia</div>
+          <div class="saldo-amount" id="saldo-amount">Rp 0</div>
+          <div class="saldo-sub" id="saldo-sub">Belum ada penghasilan. Publikasikan konten untuk mulai menghasilkan.</div>
+          <div class="saldo-stats">
+            <div class="saldo-stat">
+              <div class="saldo-stat-label">Total Like</div>
+              <div class="saldo-stat-value" id="stat-total-likes">0</div>
+            </div>
+            <div class="saldo-stat">
+              <div class="saldo-stat-label">Total Komentar</div>
+              <div class="saldo-stat-value" id="stat-total-comments">0</div>
+            </div>
+            <div class="saldo-stat">
+              <div class="saldo-stat-label">Total Share</div>
+              <div class="saldo-stat-value" id="stat-total-shares">0</div>
+            </div>
+            <div class="saldo-stat">
+              <div class="saldo-stat-label">Total Tayangan</div>
+              <div class="saldo-stat-value" id="stat-total-views">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarif Penghasilan -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Tarif Penghasilan per Engagement
+              </div>
+              <div class="card-desc">Penghasilan dihitung otomatis dari setiap interaksi publik pada konten Anda.</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px">
+              <div style="padding:12px; background:rgba(244,63,94,.06); border-radius:10px; text-align:center">
+                <div style="font-size:11px; color:var(--slate-500)">❤️ Setiap Like</div>
+                <div style="font-size:18px; font-weight:700; color:var(--rose-500); margin-top:4px">Rp 100</div>
+              </div>
+              <div style="padding:12px; background:rgba(139,92,246,.06); border-radius:10px; text-align:center">
+                <div style="font-size:11px; color:var(--slate-500)">💬 Setiap Komentar</div>
+                <div style="font-size:18px; font-weight:700; color:var(--violet-600); margin-top:4px">Rp 250</div>
+              </div>
+              <div style="padding:12px; background:rgba(14,165,233,.06); border-radius:10px; text-align:center">
+                <div style="font-size:11px; color:var(--slate-500)">🔗 Setiap Bagikan</div>
+                <div style="font-size:18px; font-weight:700; color:var(--sky-500); margin-top:4px">Rp 500</div>
+              </div>
+              <div style="padding:12px; background:rgba(16,185,129,.06); border-radius:10px; text-align:center">
+                <div style="font-size:11px; color:var(--slate-500)">👁️ Setiap Tayangan</div>
+                <div style="font-size:18px; font-weight:700; color:var(--emerald-600); margin-top:4px">Rp 10</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="payment-grid">
+          <!-- LEFT: Penghasilan per post -->
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    Penghasilan per Konten
+                  </div>
+                  <div class="card-desc">Rincian penghasilan dari setiap unggahan Anda.</div>
+                </div>
+              </div>
+              <div class="card-content" style="padding:12px">
+                <div id="earnings-list"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Form Penarikan -->
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    Tarik Dana
+                  </div>
+                  <div class="card-desc">Pilih metode penarikan &amp; jumlah.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <!-- Method tabs -->
+                <div class="withdraw-method-tabs" id="withdraw-method-tabs">
+                  <button class="withdraw-tab active" data-method="bank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+                    Bank
+                  </button>
+                  <button class="withdraw-tab" data-method="retail">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l2-5h14l2 5M3 9v11a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V9M3 9h18"/></svg>
+                    Tunai
+                  </button>
+                  <button class="withdraw-tab" data-method="qris">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    QRIS
+                  </button>
+                </div>
+
+                <!-- Amount input -->
+                <div class="form-group">
+                  <label class="lbl" for="withdraw-amount">Jumlah Penarikan (Rp)</label>
+                  <input class="inp" id="withdraw-amount" type="number" placeholder="Min. sesuai metode dipilih" min="10000" step="1000" />
+                </div>
+
+                <!-- Bank Method -->
+                <div id="method-bank" class="method-panel">
+                  <label class="lbl">Pilih Bank</label>
+                  <div class="bank-grid" id="bank-grid">
+                    <button class="bank-option" data-bank="BSI"><div class="bank-logo">BSI</div><div class="bank-name">Bank Syariah Indonesia</div></button>
+                    <button class="bank-option" data-bank="BNI"><div class="bank-logo">BNI</div><div class="bank-name">Bank Negara Indonesia</div></button>
+                    <button class="bank-option" data-bank="BRI"><div class="bank-logo">BRI</div><div class="bank-name">Bank Rakyat Indonesia</div></button>
+                    <button class="bank-option" data-bank="Danamon"><div class="bank-logo">Danamon</div><div class="bank-name">Bank Danamon</div></button>
+                  </div>
+                  <div class="form-group">
+                    <label class="lbl" for="bank-account">Nomor Rekening</label>
+                    <input class="inp" id="bank-account" placeholder="1234567890" inputmode="numeric" />
+                  </div>
+                  <div class="form-group" style="margin-bottom:0">
+                    <label class="lbl" for="bank-holder">Nama Pemilik Rekening</label>
+                    <input class="inp" id="bank-holder" placeholder="Nama sesuai buku tabungan" />
+                  </div>
+                  <div class="withdraw-fee-info">Biaya admin: Rp 2.500 • Min penarikan: Rp 50.000 • Proses: 1-2 hari kerja</div>
+                </div>
+
+                <!-- Retail Method -->
+                <div id="method-retail" class="method-panel" style="display:none">
+                  <label class="lbl">Pilih Retail</label>
+                  <div class="retail-grid" id="retail-grid">
+                    <button class="retail-option" data-retail="Alfamart"><div class="retail-logo">Alfamart</div><div class="retail-name">Minimarket</div></button>
+                    <button class="retail-option" data-retail="Indomaret"><div class="retail-logo">Indomaret</div><div class="retail-name">Minimarket</div></button>
+                    <button class="retail-option" data-retail="Alfamidi"><div class="retail-logo">Alfamidi</div><div class="retail-name">Supermarket</div></button>
+                  </div>
+                  <div class="form-group" style="margin-bottom:0">
+                    <label class="lbl" for="retail-phone">Nomor Handphone</label>
+                    <input class="inp" id="retail-phone" placeholder="08xxxxxxxxxx" inputmode="numeric" />
+                  </div>
+                  <div class="withdraw-fee-info">Biaya admin: Rp 5.000 • Min penarikan: Rp 20.000 • Kode klaim dikirim via SMS</div>
+                </div>
+
+                <!-- QRIS Method -->
+                <div id="method-qris" class="method-panel" style="display:none">
+                  <label class="lbl">Pilih Dompet Digital</label>
+                  <div class="wallet-grid" id="wallet-grid">
+                    <button class="wallet-option" data-wallet="GoPay"><div class="wallet-logo" style="color:#00a155">GoPay</div><div class="wallet-name">Gojek</div></button>
+                    <button class="wallet-option" data-wallet="OVO"><div class="wallet-logo" style="color:#4c2a86">OVO</div><div class="wallet-name">Lippo</div></button>
+                    <button class="wallet-option" data-wallet="DANA"><div class="wallet-logo" style="color:#118eea">DANA</div><div class="wallet-name">Dompet Digital</div></button>
+                    <button class="wallet-option" data-wallet="ShopeePay"><div class="wallet-logo" style="color:#ee4d2d">ShopeePay</div><div class="wallet-name">Shopee</div></button>
+                    <button class="wallet-option" data-wallet="LinkAja"><div class="wallet-logo" style="color:#e11931">LinkAja</div><div class="wallet-name">Telkom</div></button>
+                    <button class="wallet-option" data-wallet="JeniusPay"><div class="wallet-logo" style="color:#f47b20">Jenius</div><div class="wallet-name">BTPN</div></button>
+                  </div>
+                  <div class="form-group" style="margin-bottom:0">
+                    <label class="lbl" for="wallet-phone">Nomor Handphone Terdaftar</label>
+                    <input class="inp" id="wallet-phone" placeholder="08xxxxxxxxxx" inputmode="numeric" />
+                  </div>
+                  <div class="withdraw-fee-info">Biaya admin: Rp 1.000 • Min penarikan: Rp 10.000 • Instant transfer</div>
+                </div>
+
+                <!-- Summary -->
+                <div class="withdraw-summary">
+                  <div>
+                    <div class="withdraw-summary-label">Total Diterima</div>
+                    <div style="font-size:11px; color:var(--slate-500)" id="withdraw-fee-detail">Rp 0 fee</div>
+                  </div>
+                  <div class="withdraw-summary-value" id="withdraw-net">Rp 0</div>
+                </div>
+
+                <button class="btn btn-primary" id="submit-withdraw-btn" style="width:100%; background:linear-gradient(90deg,#7c3aed,#c026d3)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                  Ajukan Penarikan
+                </button>
+              </div>
+            </div>
+
+            <!-- QRIS Result (hidden by default) -->
+            <div class="card" id="qris-result-card" style="display:none; margin-top:16px">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    QRIS Penarikan
+                  </div>
+                  <div class="card-desc">Scan QR untuk menyelesaikan penarikan.</div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="qris-display">
+                  <div class="qris-label">Scan dengan aplikasi dompet digital</div>
+                  <canvas id="qris-canvas-withdraw" width="200" height="200"></canvas>
+                  <div class="qris-amount" id="qris-amount-display">Rp 0</div>
+                  <div class="qris-status" id="qris-status">⏳ Menunggu pembayaran...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Riwayat Transaksi -->
+        <div class="card" style="margin-top:16px">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+                Riwayat Penarikan
+              </div>
+              <div class="card-desc">Semua transaksi penarikan Anda.</div>
+            </div>
+          </div>
+          <div class="card-content" style="padding:12px">
+            <div id="tx-history-list"></div>
           </div>
         </div>
       </section>
@@ -2580,6 +2907,7 @@ window.toggleLike = function(id){
   dbUpdateFile(id, { likes: f.likes });
   renderBeranda();
   renderShorts();
+  renderPaymentTab();
 };
 
 window.toggleComments = function(id){
@@ -2611,6 +2939,7 @@ window.addComment = function(id){
   dbUpdateFile(id, { comments: f.comments });
   input.value = '';
   renderBeranda();
+  renderPaymentTab();
   // Buka kembali comments section untuk item ini
   setTimeout(()=>{ const el = document.getElementById('comments-'+id); if(el) el.classList.add('open'); }, 50);
   toast('Komentar ditambahkan', 'Komentar Anda telah dipublikasikan.', 'success');
@@ -2641,12 +2970,365 @@ document.addEventListener('click', e=>{
   renderBeranda();
 });
 
+/* =================== PAYMENT =================== */
+const EARNING_RATES = { like:100, comment:250, share:500, view:10 };
+const WITHDRAW_FEES = { bank:2500, retail:5000, qris:1000 };
+const WITHDRAW_MIN = { bank:50000, retail:20000, qris:10000 };
+state.payment = { method:'bank', selectedBank:null, selectedRetail:null, selectedWallet:null, transactions:[] };
+state.shareCounts = {}; // track share counts per file id
+
+function calcFileEarning(f){
+  const likes = (f.likes||[]).length;
+  const comments = (f.comments||[]).length;
+  const shares = state.shareCounts[f.id] || (f.shares || 0);
+  const views = f.views || 0;
+  return {
+    likes, comments, shares, views,
+    total: likes*EARNING_RATES.like + comments*EARNING_RATES.comment + shares*EARNING_RATES.share + views*EARNING_RATES.view,
+  };
+}
+
+function calcTotalEarnings(){
+  let totals = { likes:0, comments:0, shares:0, views:0, total:0 };
+  state.files.forEach(f=>{
+    const e = calcFileEarning(f);
+    totals.likes += e.likes; totals.comments += e.comments;
+    totals.shares += e.shares; totals.views += e.views; totals.total += e.total;
+  });
+  return totals;
+}
+
+function getWithdrawnTotal(){
+  return state.payment.transactions.filter(t=>t.status==='success').reduce((s,t)=>s+t.amount, 0);
+}
+
+function getPendingTotal(){
+  return state.payment.transactions.filter(t=>t.status==='pending').reduce((s,t)=>s+t.amount, 0);
+}
+
+function getAvailableBalance(){
+  return calcTotalEarnings().total - getWithdrawnTotal() - getPendingTotal();
+}
+
+function formatRupiah(n){
+  return 'Rp ' + (n||0).toLocaleString('id-ID');
+}
+
+function renderPaymentTab(){
+  const totals = calcTotalEarnings();
+  const balance = getAvailableBalance();
+  document.getElementById('saldo-amount').textContent = formatRupiah(balance);
+  document.getElementById('saldo-sub').textContent = 'Penghasilan total: '+formatRupiah(totals.total)+' • Pending: '+formatRupiah(getPendingTotal());
+  document.getElementById('stat-total-likes').textContent = totals.likes;
+  document.getElementById('stat-total-comments').textContent = totals.comments;
+  document.getElementById('stat-total-shares').textContent = totals.shares;
+  document.getElementById('stat-total-views').textContent = totals.views;
+  renderEarningsList();
+  renderTxHistory();
+  updateWithdrawSummary();
+}
+
+function renderEarningsList(){
+  const list = document.getElementById('earnings-list');
+  if(!list) return;
+  const myFiles = state.files.filter(f=>f.uploader === state.uploader.name && (f.status==='queued' || f.status==='completed'));
+  if(myFiles.length === 0){
+    list.innerHTML = '<div class="history-empty">Belum ada konten yang menghasilkan. Upload file untuk mulai menghasilkan dari like, komentar, share, dan tayangan.</div>';
+    return;
+  }
+  list.innerHTML = myFiles.map(f=>{
+    const e = calcFileEarning(f);
+    const cat = getFileCategory(f.type);
+    let thumb = '';
+    if(f.previewUrl && cat==='image') thumb = `<img src="${f.previewUrl}" alt="${f.name}" />`;
+    else if(f.previewUrl && cat==='video') thumb = `<video src="${f.previewUrl}" muted></video>`;
+    else thumb = `<div style="background:${categoryGradientMap[cat]}; width:100%; height:100%; display:flex; align-items:center; justify-content:center">${categoryIconMap[cat]}</div>`;
+    return `<div class="earning-item">
+      <div class="earning-thumb">${thumb}</div>
+      <div class="earning-info">
+        <div class="earning-name" title="${f.name}">${f.name}</div>
+        <div class="earning-breakdown">❤️ ${e.likes} (${formatRupiah(e.likes*EARNING_RATES.like)}) • 💬 ${e.comments} (${formatRupiah(e.comments*EARNING_RATES.comment)}) • 🔗 ${e.shares} (${formatRupiah(e.shares*EARNING_RATES.share)}) • 👁️ ${e.views} (${formatRupiah(e.views*EARNING_RATES.view)})</div>
+      </div>
+      <div class="earning-amount">${formatRupiah(e.total)}</div>
+    </div>`;
+  }).join('');
+}
+
+function updateWithdrawSummary(){
+  const amount = parseInt(document.getElementById('withdraw-amount').value) || 0;
+  const method = state.payment.method;
+  const fee = WITHDRAW_FEES[method];
+  const net = Math.max(0, amount - fee);
+  document.getElementById('withdraw-fee-detail').textContent = formatRupiah(fee)+' fee admin';
+  document.getElementById('withdraw-net').textContent = formatRupiah(net);
+}
+
+// Method tab switching
+document.addEventListener('click', e=>{
+  const tab = e.target.closest('.withdraw-tab');
+  if(!tab) return;
+  document.querySelectorAll('.withdraw-tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  state.payment.method = tab.dataset.method;
+  document.querySelectorAll('.method-panel').forEach(p=>p.style.display='none');
+  document.getElementById('method-'+state.payment.method).style.display='block';
+  updateWithdrawSummary();
+});
+
+// Bank selection
+document.addEventListener('click', e=>{
+  const opt = e.target.closest('.bank-option');
+  if(!opt) return;
+  document.querySelectorAll('.bank-option').forEach(o=>o.classList.remove('selected'));
+  opt.classList.add('selected');
+  state.payment.selectedBank = opt.dataset.bank;
+});
+
+// Retail selection
+document.addEventListener('click', e=>{
+  const opt = e.target.closest('.retail-option');
+  if(!opt) return;
+  document.querySelectorAll('.retail-option').forEach(o=>o.classList.remove('selected'));
+  opt.classList.add('selected');
+  state.payment.selectedRetail = opt.dataset.retail;
+});
+
+// Wallet selection
+document.addEventListener('click', e=>{
+  const opt = e.target.closest('.wallet-option');
+  if(!opt) return;
+  document.querySelectorAll('.wallet-option').forEach(o=>o.classList.remove('selected'));
+  opt.classList.add('selected');
+  state.payment.selectedWallet = opt.dataset.wallet;
+});
+
+// Amount input listener
+document.getElementById('withdraw-amount').addEventListener('input', updateWithdrawSummary);
+
+// Submit withdrawal
+document.getElementById('submit-withdraw-btn').addEventListener('click', async ()=>{
+  if(!state.uploader.name){ toast('Login dulu', 'Masukkan nama Anda untuk penarikan.', 'error'); return; }
+  const amount = parseInt(document.getElementById('withdraw-amount').value) || 0;
+  const method = state.payment.method;
+  const min = WITHDRAW_MIN[method];
+  const fee = WITHDRAW_FEES[method];
+  const balance = getAvailableBalance();
+  if(amount < min){ toast('Jumlah terlalu kecil', 'Min penarikan '+method+': '+formatRupiah(min), 'error'); return; }
+  if(amount > balance){ toast('Saldo tidak cukup', 'Saldo tersedia: '+formatRupiah(balance), 'error'); return; }
+  // Validate method-specific fields
+  let detail = '';
+  if(method === 'bank'){
+    if(!state.payment.selectedBank){ toast('Pilih bank', 'Pilih salah satu bank terlebih dahulu.', 'error'); return; }
+    const acc = document.getElementById('bank-account').value.trim();
+    const holder = document.getElementById('bank-holder').value.trim();
+    if(!acc || !holder){ toast('Data tidak lengkap', 'Isi nomor rekening & nama pemilik.', 'error'); return; }
+    detail = state.payment.selectedBank+' • '+acc+' • '+holder;
+  } else if(method === 'retail'){
+    if(!state.payment.selectedRetail){ toast('Pilih retail', 'Pilih salah satu retail.', 'error'); return; }
+    const phone = document.getElementById('retail-phone').value.trim();
+    if(!phone){ toast('Nomor HP kosong', 'Isi nomor handphone Anda.', 'error'); return; }
+    detail = state.payment.selectedRetail+' • '+phone;
+  } else if(method === 'qris'){
+    if(!state.payment.selectedWallet){ toast('Pilih dompet', 'Pilih salah satu dompet digital.', 'error'); return; }
+    const phone = document.getElementById('wallet-phone').value.trim();
+    if(!phone){ toast('Nomor HP kosong', 'Isi nomor handphone terdaftar.', 'error'); return; }
+    detail = state.payment.selectedWallet+' • '+phone;
+  }
+  const tx = {
+    id: uid(),
+    user: state.uploader.name,
+    method, detail,
+    amount, fee, net: amount - fee,
+    status: method === 'qris' ? 'pending' : 'pending',
+    timestamp: Date.now(),
+    claimCode: method === 'retail' ? generateClaimCode() : null,
+  };
+  state.payment.transactions.unshift(tx);
+  await dbAddTransaction(tx);
+  renderPaymentTab();
+  // QRIS: show QR
+  if(method === 'qris'){
+    showQRISWithdraw(tx);
+  } else if(method === 'retail'){
+    toast('Penarikan diajukan', 'Kode klaim: '+tx.claimCode+'. Tunjukkan kode di '+state.payment.selectedRetail+'.', 'success');
+  } else {
+    toast('Penarikan diajukan', 'Transfer '+formatRupiah(amount)+' ke '+detail+' diproses 1-2 hari kerja.', 'success');
+  }
+  // Reset form
+  document.getElementById('withdraw-amount').value = '';
+  // Simulate completion for non-QRIS after delay
+  if(method !== 'qris'){
+    setTimeout(async ()=>{
+      const t = state.payment.transactions.find(x=>x.id===tx.id);
+      if(t && t.status === 'pending'){
+        t.status = 'success';
+        await dbUpdateTransaction(tx.id, { status:'success' });
+        renderPaymentTab();
+        toast('Penarikan berhasil', formatRupiah(t.amount)+' masuk ke '+t.detail, 'success');
+      }
+    }, 4000 + Math.random()*3000);
+  }
+});
+
+function generateClaimCode(){
+  return 'KCH' + Math.random().toString(36).slice(2,8).toUpperCase() + Math.floor(Math.random()*100);
+}
+
+function showQRISWithdraw(tx){
+  document.getElementById('qris-result-card').style.display = 'block';
+  document.getElementById('qris-amount-display').textContent = formatRupiah(tx.amount);
+  document.getElementById('qris-status').textContent = '⏳ Menunggu pembayaran...';
+  drawQRISWithdraw(tx);
+  // Simulate payment after 8 seconds
+  setTimeout(async ()=>{
+    const t = state.payment.transactions.find(x=>x.id===tx.id);
+    if(t && t.status === 'pending'){
+      t.status = 'success';
+      await dbUpdateTransaction(tx.id, { status:'success' });
+      document.getElementById('qris-status').textContent = '✅ Pembayaran berhasil!';
+      document.getElementById('qris-status').style.color = 'var(--emerald-600)';
+      renderPaymentTab();
+      toast('QRIS dibayar', formatRupiah(tx.amount)+' masuk ke '+tx.detail, 'success');
+    }
+  }, 8000);
+}
+
+function drawQRISWithdraw(tx){
+  const canvas = document.getElementById('qris-canvas-withdraw');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const size = 200, modules = 25, cell = size/modules;
+  const payload = 'QRIS:'+tx.id+':'+tx.amount+':'+tx.detail;
+  let h = 5381;
+  for(let i=0;i<payload.length;i++){ h = ((h<<5)+h) + payload.charCodeAt(i); h = h & 0xffffffff; }
+  function rand(){ h = (h*1103515245+12345) & 0x7fffffff; return (h/0x7fffffff); }
+  ctx.fillStyle = '#fff'; ctx.fillRect(0,0,size,size);
+  ctx.fillStyle = '#1e1b4b';
+  function finder(x,y){
+    ctx.fillRect(x*cell, y*cell, 7*cell, 7*cell);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect((x+1)*cell, (y+1)*cell, 5*cell, 5*cell);
+    ctx.fillStyle = '#1e1b4b';
+    ctx.fillRect((x+2)*cell, (y+2)*cell, 3*cell, 3*cell);
+  }
+  finder(0,0); finder(modules-7,0); finder(0,modules-7);
+  for(let y=0;y<modules;y++){
+    for(let x=0;x<modules;x++){
+      if((x<8 && y<8) || (x>=modules-8 && y<8) || (x<8 && y>=modules-8)) continue;
+      if(rand() > 0.5) ctx.fillRect(x*cell, y*cell, cell, cell);
+    }
+  }
+  ctx.fillStyle = '#1e1b4b';
+  for(let i=8;i<modules-8;i++){
+    if(i%2===0){ ctx.fillRect(i*cell, 6*cell, cell, cell); ctx.fillRect(6*cell, i*cell, cell, cell); }
+  }
+}
+
+function renderTxHistory(){
+  const list = document.getElementById('tx-history-list');
+  if(!list) return;
+  if(state.payment.transactions.length === 0){
+    list.innerHTML = '<div class="history-empty">Belum ada riwayat penarikan.</div>';
+    return;
+  }
+  list.innerHTML = state.payment.transactions.map(t=>{
+    const methodLabel = { bank:'🏦 Bank', retail:'🏪 Tunai', qris:'📱 QRIS' }[t.method];
+    const statusClass = 'tx-'+t.status;
+    const statusLabel = { pending:'Pending', success:'Berhasil', failed:'Gagal' }[t.status];
+    let extra = '';
+    if(t.method === 'retail' && t.claimCode){
+      extra = `<div class="claim-code-box"><div class="claim-code-label">Kode Klaim (tunjukkan di kasir ${t.detail.split(' • ')[0]})</div><div class="claim-code-value">${t.claimCode}</div></div>`;
+    }
+    return `<div class="tx-history-item">
+      <div class="tx-info">
+        <div class="tx-method">${methodLabel} • ${t.detail}</div>
+        <div class="tx-date">${formatTime(t.timestamp)} • Fee ${formatRupiah(t.fee)} • Net ${formatRupiah(t.net)}</div>
+        ${extra}
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px">
+        <span class="tx-status-badge ${statusClass}">${statusLabel}</span>
+        <div class="tx-amount">${formatRupiah(t.amount)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Increment share count when user shares
+const origSharePost = window.sharePost;
+window.sharePost = function(id){
+  const f = state.files.find(x=>x.id===id);
+  if(!f) return;
+  state.shareCounts[id] = (state.shareCounts[id] || 0) + 1;
+  // Also persist to file record
+  f.shares = state.shareCounts[id];
+  dbUpdateFile(id, { shares: f.shares });
+  origSharePost(id);
+  renderPaymentTab();
+};
+
+/* === IndexedDB for transactions === */
+const STORE_TX = 'transactions';
+function openDBTx(){
+  return new Promise((resolve, reject)=>{
+    const req = indexedDB.open(DB_NAME, DB_VERSION + 1);
+    req.onupgradeneeded = e=>{
+      const db = e.target.result;
+      if(!db.objectStoreNames.contains(STORE_TX)){
+        db.createObjectStore(STORE_TX, { keyPath:'id' });
+      }
+    };
+    req.onsuccess = ()=>resolve(req.result);
+    req.onerror = ()=>reject(req.error);
+  });
+}
+async function dbAddTransaction(tx){
+  try{
+    const db = await openDBTx();
+    return new Promise((resolve, reject)=>{
+      const txx = db.transaction(STORE_TX, 'readwrite');
+      const r = txx.objectStore(STORE_TX).put(tx);
+      r.onsuccess = ()=>resolve(); r.onerror = ()=>reject(r.error);
+    });
+  }catch(err){ console.warn('dbAddTx:', err); }
+}
+async function dbUpdateTransaction(id, updates){
+  try{
+    const db = await openDBTx();
+    return new Promise((resolve, reject)=>{
+      const txx = db.transaction(STORE_TX, 'readwrite');
+      const store = txx.objectStore(STORE_TX);
+      const g = store.get(id);
+      g.onsuccess = ()=>{
+        if(!g.result) return resolve();
+        Object.assign(g.result, updates);
+        const r = store.put(g.result);
+        r.onsuccess = ()=>resolve(); r.onerror = ()=>reject(r.error);
+      };
+      g.onerror = ()=>reject(g.error);
+    });
+  }catch(err){ console.warn('dbUpdateTx:', err); }
+}
+async function dbGetAllTransactions(){
+  try{
+    const db = await openDBTx();
+    return new Promise((resolve, reject)=>{
+      const r = db.transaction(STORE_TX, 'readonly').objectStore(STORE_TX).getAll();
+      r.onsuccess = ()=>resolve(r.result || []); r.onerror = ()=>reject(r.error);
+    });
+  }catch(err){ console.warn('dbGetAllTx:', err); return []; }
+}
+async function loadTransactions(){
+  const txs = await dbGetAllTransactions();
+  state.payment.transactions = txs.sort((a,b)=>b.timestamp - a.timestamp);
+}
+
 /* =================== INIT =================== */
 async function init(){
   loadUploader();
   loadHistory();
   // Load files dari IndexedDB (async) — agar file tetap ada walau ganti akun/reload
   await loadFilesFromDB();
+  await loadTransactions();
   renderFiles();
   renderProcessedFiles();
   renderPlatforms();
@@ -2658,6 +3340,7 @@ async function init(){
   renderHistory();
   renderBeranda();
   renderShorts();
+  renderPaymentTab();
 }
 init();
 
@@ -2665,6 +3348,7 @@ init();
 setInterval(()=>{
   renderHistory();
   renderBeranda();
+  renderPaymentTab();
   if(state.files.length > 0) renderFiles();
 }, 60000);
 </script>
